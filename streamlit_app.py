@@ -26,7 +26,7 @@ fruit_choice = streamlit.text_input('What fruit would you like information about
 streamlit.write('The user entered ', fruit_choice)
 
 import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon") #s'agafen dades de watermelon
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice) #s'agafen dades de watermelon
 #streamlit.text(fruityvice_response.json()) #s'escriuen per pantalla les dades
 
 # Normalitza el json: fa que per cada atribut numèric no creï una fila al fer el dataframe a streamlit

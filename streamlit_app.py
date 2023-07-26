@@ -27,7 +27,7 @@ import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon") #s'agafen dades de watermelon
 streamlit.text(fruityvice_response.json()) #s'escriuen per pantalla les dades
 
-# write your own comment -what does the next line do? 
+# Normalitza el json: fa que per cada atribut numèric no creï una fila al fer el dataframe a streamlit
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# write your own comment - what does this do?
+# Crea a dataframe/taula el resultat normalitzat
 streamlit.dataframe(fruityvice_normalized)

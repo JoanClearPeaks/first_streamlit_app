@@ -22,7 +22,15 @@ fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.
 frui_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(frui_to_show)
 
-
+#Creaete Section to display fruityvice api response
+def get_fruityvice_data(this_fruit_choice):
+   #streamlit.text(fruityvice_response.json()) #s'escriuen per pantalla les dades
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice) #s'agafen dades de watermelon
+    # Normalitza el json: fa que per cada atribut numèric no creï una fila al fer el dataframe a streamlit
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    # Crea a dataframe/taula el resultat normalitzat
+    return fruityvice_normalized
+  
 #New Section to display fruityvice api response
 streamlit.header("Fruityvice Fruit Advice!")
 try:
@@ -30,12 +38,8 @@ try:
   if not fruit_choice:
     streamlit.error("Please select a fruit to get information")
   else:
-    #streamlit.text(fruityvice_response.json()) #s'escriuen per pantalla les dades
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice) #s'agafen dades de watermelon
-    # Normalitza el json: fa que per cada atribut numèric no creï una fila al fer el dataframe a streamlit
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-    # Crea a dataframe/taula el resultat normalitzat
-    streamlit.dataframe(fruityvice_normalized)
+     back_from_function = get_fruityvice_data(fruit_choice)
+    streamlit.dataframe(back_from_function)
 
 except URLError as e:
   streamlit.error()

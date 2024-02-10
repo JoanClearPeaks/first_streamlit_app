@@ -14,7 +14,7 @@ class Outlier_Quantiles():
                 This module detects countries that are misspelled or do not really correspond to any country in the target column.
                 It returns how many values are not a country, the number of total values checked, and a pie chart.
                 ''')
-    st.write("          ")
+    st.write("Hola ")
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')

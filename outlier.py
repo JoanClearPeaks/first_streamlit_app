@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 #------------------------------ TITLE & DESCRIPTION ------------------------------------------------------------------------------------------------------------------------------------------------------
 class Outlier_Quantiles():
-  def outlier_quantiles(): 
+  def outlier_quantiles(self): 
     st.divider()
     st.header("Outlier_Quantiles")
     st.markdown('''

@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 #------------------------------ TITLE & DESCRIPTION ------------------------------------------------------------------------------------------------------------------------------------------------------
 class Outlier_Quantiles():
   def outlier_quantiles(self): 
+    st.title('DATAWASH_APP')
     st.divider()
     st.header("Outlier_Quantiles")
     st.markdown('''

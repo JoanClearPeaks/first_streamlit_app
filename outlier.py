@@ -43,6 +43,7 @@ class Outlier_Quantiles():
   #         st.sidebar.subheader('PARAMETERS')
     # col1, col2, col3 = st.columns(3)
     else:
+      self.warning_dic = {}
       self.rolling_period = st.number_input('**Number of observations (mean)**', min_value=0, step=1)
       self.warning_dic["ENABLED_GROUPING_DAY"] = st.checkbox('Group per day')
       if self.rolling_period > 1:

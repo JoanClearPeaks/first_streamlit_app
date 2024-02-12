@@ -47,24 +47,24 @@ class Outlier_Quantiles():
       self.warning_dic["ENABLED_GROUPING_DAY"] = st.checkbox('Group per day')
       if self.rolling_period > 1:
               col1, col2, col3, col4 = st.columns(4)
-          else:
-              col1, col2, col3 = st.columns(3)
+      else:
+          col1, col2, col3 = st.columns(3)
   
-          col1.metric("OUTLIERS DETECTED", 1)
-          
-          
-          if self.rolling_period > 1:
-              if self.warning_dic["ENABLED_GROUPING_DAY"]:
-                  col2.metric(f"GROUPS OF 2 DAYS CHECKED", 10)
-              else:
-                  col2.metric(f"GROUPS OF 2 OBSERVATIONS CHECKED", 10)
-              
-              col3.metric("DAYS CHECKED", 12)
-              col4.metric(f"TOTAL OBSERVATIONS", 21) #self.df.shape[0] to have only total days that have been grouped
-          
-          else:
-              col2.metric("DAYS CHECKED", 12)
-              col3.metric(f"TOTAL OBSERVATIONS",21) #self.df.shape[0] to have only total days that have been grouped
+        col1.metric("OUTLIERS DETECTED", 1)
+        
+        
+        if self.rolling_period > 1:
+            if self.warning_dic["ENABLED_GROUPING_DAY"]:
+                col2.metric(f"GROUPS OF 2 DAYS CHECKED", 10)
+            else:
+                col2.metric(f"GROUPS OF 2 OBSERVATIONS CHECKED", 10)
+            
+            col3.metric("DAYS CHECKED", 12)
+            col4.metric(f"TOTAL OBSERVATIONS", 21) #self.df.shape[0] to have only total days that have been grouped
+        
+        else:
+            col2.metric("DAYS CHECKED", 12)
+            col3.metric(f"TOTAL OBSERVATIONS",21) #self.df.shape[0] to have only total days that have been grouped
         
     return 
 

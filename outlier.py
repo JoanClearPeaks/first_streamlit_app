@@ -66,7 +66,7 @@ class Outlier_Quantiles():
       else:
           col2.metric("DAYS CHECKED", 12)
           col3.metric(f"TOTAL OBSERVATIONS",21) #self.df.shape[0] to have only total days that have been grouped
-      
+      st.write('hola')
     return 
 
 a = Outlier_Quantiles()

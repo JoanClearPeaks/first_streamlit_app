@@ -41,7 +41,8 @@ class Outlier_Quantiles():
   #    #------------------------------ PARAMETERS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   #         st.sidebar.divider()
   #         st.sidebar.subheader('PARAMETERS')
-    col1, col2, col3 = st.columns(3)
+    # col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
     col1.metric("OUTLIERS DETECTED", 1)
     col2.metric("OUTLIERS S", 2)
         

@@ -231,7 +231,19 @@ class Outlier_Quantiles():
         col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0])
     
      
+  #---------------------------------------WARNINGS--------------------------------
+    if self.warning_dic['ENABLED']:
+      if self.outliers_count != 0:
+          if self.outliers_count == 1:
+              st.warning(f"There is {str(self.outliers_count)} outlier in {now} execution.", icon = '⚠')
+          else:
+              st.warning(f"There are {str(self.outliers_count)} outliers in {now} execution.", icon = '⚠')
 
+          with st.expander(f"See outliers in {self.target_column} column", expanded=False):
+              st.dataframe(self.df_outliers, use_container_width=True)
+      else:
+          st.success("No outliers have been detected.", icon = '✔')
+              
   #---------------------------------------VISUALIZE--------------------------------
     if self.date_column != 'False':
         a = copy.copy(self.df_result[self.date_column])

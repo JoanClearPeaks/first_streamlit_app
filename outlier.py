@@ -230,7 +230,7 @@ class Outlier_Quantiles():
         col1.metric("OUTLIERS DETECTED", self.outliers_count)
         col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0])
     
-    return 
+     
 
   #---------------------------------------VISUALIZE--------------------------------
     if self.date_column != 'False':
@@ -361,7 +361,8 @@ class Outlier_Quantiles():
     
     with container2:
         st.altair_chart(final_chart2, use_container_width=True)
-
+  return
+  
 a = Outlier_Quantiles()
 a.outlier_quantiles()
 

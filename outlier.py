@@ -233,134 +233,134 @@ class Outlier_Quantiles():
     return 
 
   #---------------------------------------VISUALIZE--------------------------------
-  if self.date_column != 'False':
-      a = copy.copy(self.df_result[self.date_column])
-      if self.rolling_period == 1:
-          a = pd.to_datetime(a, format="%Y-%m-%dT%H:%M:%S.%fZ")
-          self.df_result[self.date_column] = a.apply(lambda x: x.strftime("%Y-%m-%d"))
-      
-      else:
-          self.df_result[self.date_column] = self.df_result[self.date_column].astype('category')
-      
-      # self.df_result[self.date_column] = self.df_result[self.date_column].apply(lambda x: datetime.strptime(x, "%y-%m-%d").strftime("%d/%m/%y"))
-  container = st.container()
-  if self.date_column == 'False':
-      self.df_result = self.df_result.reset_index()
-  
-  x_column = list(self.df_result.columns)[0]
-  y_column = list(self.df_result.columns)[1]
-  outlier_column = 'OUTLIER'
-  
-  min_y = self.df_result[y_column].min()
-  max_y = self.df_result[y_column].max()
-
-  if max_y < self.upper_threshold:
-      max_y = self.upper_threshold
-
-  if min_y > self.lower_threshold:
-      min_y = self.lower_threshold
-
-  y_range=max_y-min_y
-  padding_percentage = 0.05  # Puedes ajustar este valor según tus preferencias
-  padding = y_range * padding_percentage          
-      # Asumiendo que tienes las variables lower_threshold y upper_threshold definidas
-
-  if self.date_column != 'False':
-  # Crear el gráfico de Altair con líneas de umbrales y sombreado
-      chart = alt.Chart(self.df_result).mark_point().encode(
-          x=f'{x_column}:N',
-          y=alt.Y(f'{y_column}:Q', scale=alt.Scale(domain=[min_y - padding, max_y + padding]), axis=alt.Axis(title=y_column)),  # Ajustar el dominio del eje y
-          color=alt.condition(
-              alt.datum[outlier_column],
-              alt.value('red'),  # Si OUTLIER es True, color rojo
-              alt.value('green')  # Si OUTLIER es False, color verde
-          ),
-          tooltip=[
-              f'{x_column}:N',
-              f'{y_column}:Q',
-              f'{outlier_column}:N'
-          ]
-      ).properties(width=600, height=400)
-  
-  else:
-      chart = alt.Chart(self.df_result).mark_point().encode(
-          x=f'index:N',
-          y=alt.Y(f'{y_column}:Q', scale=alt.Scale(domain=[min_y - padding, max_y + padding]), axis=alt.Axis(title=y_column)),  # Ajustar el dominio del eje y
-          color=alt.condition(
-              alt.datum[outlier_column],
-              alt.value('red'),  # Si OUTLIER es True, color rojo
-              alt.value('green')  # Si OUTLIER es False, color verde
-          ),
-          tooltip=[
-              'index:N',
-              f'{y_column}:Q',
-              f'{outlier_column}:N'
-          ]
-      ).properties(width=600, height=400)
-
-  # Líneas de umbrales con leyenda y ajuste de dominio del eje y
-  lower_threshold_line = alt.Chart(pd.DataFrame({'Lower Threshold': [self.lower_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
-      y=alt.Y('Lower Threshold:Q', axis=alt.Axis(title='')),
-      tooltip=alt.Tooltip('Lower Threshold:Q', title='Lower Threshold')
-  )
-
-  upper_threshold_line = alt.Chart(pd.DataFrame({'Upper Threshold': [self.upper_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
-      y=alt.Y('Upper Threshold:Q', axis=alt.Axis(title='')),
-      tooltip=alt.Tooltip('Upper Threshold:Q', title='Upper Threshold')
-  )
-
-  if self.date_column == 'False': 
-  # Sombreado entre umbrales
-      shaded_area = alt.Chart(self.df_result).mark_area(opacity=0.15, color='yellow').encode(
-          x='index:N',
-          y='lower_threshold:Q',
-          y2='upper_threshold:Q'
-          # tooltip=[
-          #     f'{x_column}:N',
-          #     f'{y_column}:Q',
-          #     f'{outlier_column}:N'
-          # ]
-      ).transform_calculate(
-          lower_threshold=f"{self.lower_threshold}",
-          upper_threshold=f"{self.upper_threshold}"
-      )
-
-  else:
-      # Sombreado entre umbrales
-      shaded_area = alt.Chart(self.df_result).mark_area(opacity=0.15, color='yellow').encode(
-          x=f'{x_column}:N',
-          y='lower_threshold:Q',
-          y2='upper_threshold:Q'
-          # tooltip=[
-          #     f'{x_column}:N',
-          #     f'{y_column}:Q',
-          #     f'{outlier_column}:N'
-          # ]
-      ).transform_calculate(
-          lower_threshold=f"{self.lower_threshold}",
-          upper_threshold=f"{self.upper_threshold}"
-      )
-
-  # ----------------------- chart2 -----------------------------
-
-  container2 = st.container()
-  final_chart2 = alt.layer(chart, lower_threshold_line, upper_threshold_line, shaded_area).interactive()
-
-  if self.date_column == 'False':
-      final_chart2 = final_chart2.configure_view(
-          stroke=None
-      ).properties(
-          title=f'Scatter Plot of outliers in {self.target_column} column'
-      )
-  else:
-       final_chart2 = final_chart2.configure_view(
-          stroke=None
-      ).properties(
-          title=f'Scatter Plot of outliers between {self.start_date}/{self.end_date}'
-      )
-  
-  with container2:
-      st.altair_chart(final_chart2, use_container_width=True)
+    if self.date_column != 'False':
+        a = copy.copy(self.df_result[self.date_column])
+        if self.rolling_period == 1:
+            a = pd.to_datetime(a, format="%Y-%m-%dT%H:%M:%S.%fZ")
+            self.df_result[self.date_column] = a.apply(lambda x: x.strftime("%Y-%m-%d"))
+        
+        else:
+            self.df_result[self.date_column] = self.df_result[self.date_column].astype('category')
+        
+        # self.df_result[self.date_column] = self.df_result[self.date_column].apply(lambda x: datetime.strptime(x, "%y-%m-%d").strftime("%d/%m/%y"))
+    container = st.container()
+    if self.date_column == 'False':
+        self.df_result = self.df_result.reset_index()
+    
+    x_column = list(self.df_result.columns)[0]
+    y_column = list(self.df_result.columns)[1]
+    outlier_column = 'OUTLIER'
+    
+    min_y = self.df_result[y_column].min()
+    max_y = self.df_result[y_column].max()
+    
+    if max_y < self.upper_threshold:
+        max_y = self.upper_threshold
+    
+    if min_y > self.lower_threshold:
+        min_y = self.lower_threshold
+    
+    y_range=max_y-min_y
+    padding_percentage = 0.05  # Puedes ajustar este valor según tus preferencias
+    padding = y_range * padding_percentage          
+        # Asumiendo que tienes las variables lower_threshold y upper_threshold definidas
+    
+    if self.date_column != 'False':
+    # Crear el gráfico de Altair con líneas de umbrales y sombreado
+        chart = alt.Chart(self.df_result).mark_point().encode(
+            x=f'{x_column}:N',
+            y=alt.Y(f'{y_column}:Q', scale=alt.Scale(domain=[min_y - padding, max_y + padding]), axis=alt.Axis(title=y_column)),  # Ajustar el dominio del eje y
+            color=alt.condition(
+                alt.datum[outlier_column],
+                alt.value('red'),  # Si OUTLIER es True, color rojo
+                alt.value('green')  # Si OUTLIER es False, color verde
+            ),
+            tooltip=[
+                f'{x_column}:N',
+                f'{y_column}:Q',
+                f'{outlier_column}:N'
+            ]
+        ).properties(width=600, height=400)
+    
+    else:
+        chart = alt.Chart(self.df_result).mark_point().encode(
+            x=f'index:N',
+            y=alt.Y(f'{y_column}:Q', scale=alt.Scale(domain=[min_y - padding, max_y + padding]), axis=alt.Axis(title=y_column)),  # Ajustar el dominio del eje y
+            color=alt.condition(
+                alt.datum[outlier_column],
+                alt.value('red'),  # Si OUTLIER es True, color rojo
+                alt.value('green')  # Si OUTLIER es False, color verde
+            ),
+            tooltip=[
+                'index:N',
+                f'{y_column}:Q',
+                f'{outlier_column}:N'
+            ]
+        ).properties(width=600, height=400)
+    
+    # Líneas de umbrales con leyenda y ajuste de dominio del eje y
+    lower_threshold_line = alt.Chart(pd.DataFrame({'Lower Threshold': [self.lower_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
+        y=alt.Y('Lower Threshold:Q', axis=alt.Axis(title='')),
+        tooltip=alt.Tooltip('Lower Threshold:Q', title='Lower Threshold')
+    )
+    
+    upper_threshold_line = alt.Chart(pd.DataFrame({'Upper Threshold': [self.upper_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
+        y=alt.Y('Upper Threshold:Q', axis=alt.Axis(title='')),
+        tooltip=alt.Tooltip('Upper Threshold:Q', title='Upper Threshold')
+    )
+    
+    if self.date_column == 'False': 
+    # Sombreado entre umbrales
+        shaded_area = alt.Chart(self.df_result).mark_area(opacity=0.15, color='yellow').encode(
+            x='index:N',
+            y='lower_threshold:Q',
+            y2='upper_threshold:Q'
+            # tooltip=[
+            #     f'{x_column}:N',
+            #     f'{y_column}:Q',
+            #     f'{outlier_column}:N'
+            # ]
+        ).transform_calculate(
+            lower_threshold=f"{self.lower_threshold}",
+            upper_threshold=f"{self.upper_threshold}"
+        )
+    
+    else:
+        # Sombreado entre umbrales
+        shaded_area = alt.Chart(self.df_result).mark_area(opacity=0.15, color='yellow').encode(
+            x=f'{x_column}:N',
+            y='lower_threshold:Q',
+            y2='upper_threshold:Q'
+            # tooltip=[
+            #     f'{x_column}:N',
+            #     f'{y_column}:Q',
+            #     f'{outlier_column}:N'
+            # ]
+        ).transform_calculate(
+            lower_threshold=f"{self.lower_threshold}",
+            upper_threshold=f"{self.upper_threshold}"
+        )
+    
+    # ----------------------- chart2 -----------------------------
+    
+    container2 = st.container()
+    final_chart2 = alt.layer(chart, lower_threshold_line, upper_threshold_line, shaded_area).interactive()
+    
+    if self.date_column == 'False':
+        final_chart2 = final_chart2.configure_view(
+            stroke=None
+        ).properties(
+            title=f'Scatter Plot of outliers in {self.target_column} column'
+        )
+    else:
+         final_chart2 = final_chart2.configure_view(
+            stroke=None
+        ).properties(
+            title=f'Scatter Plot of outliers between {self.start_date}/{self.end_date}'
+        )
+    
+    with container2:
+        st.altair_chart(final_chart2, use_container_width=True)
 
 a = Outlier_Quantiles()
 a.outlier_quantiles()

@@ -380,7 +380,6 @@ class Outlier_Quantiles():
   def matrix(self):
     import streamlit as st
     import pandas as pd
-    import seaborn as sns
     import altair as alt
     
     # Datos

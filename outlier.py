@@ -232,6 +232,7 @@ class Outlier_Quantiles():
     
      
   #---------------------------------------WARNINGS--------------------------------
+    now = datetime.now(pytz.timezone('Europe/Madrid')).replace(tzinfo=None).isoformat(sep=" ", timespec="seconds")
     if self.warning_dic['ENABLED']:
       if self.outliers_count != 0:
           if self.outliers_count == 1:

@@ -364,7 +364,6 @@ class Outlier_Quantiles():
 
 a = Outlier_Quantiles()
 a.outlier_quantiles()
-a.visualize()
 
 
 

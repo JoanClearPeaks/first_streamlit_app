@@ -43,6 +43,7 @@ class Outlier_Quantiles():
         self.start_date = selection[self.date_column].min()
         self.end_date = selection[self.date_column].max()
         date_range = [date.date() for date in pd.date_range(start=self.start_date, end=self.end_date, freq='D') if date.date() in selection[self.date_column].tolist()]        
+        st.write(self.start_date, self.end_date)
         st.write(date_range)
         st.write("          ")
         st.sidebar.markdown("**Date Range**")

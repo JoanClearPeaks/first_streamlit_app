@@ -37,32 +37,32 @@ class Outlier_Quantiles():
     st.sidebar.divider()
     st.sidebar.subheader('PARAMETERS')
     
-   self.warning_dic = {}
+    self.warning_dic = {}
 
-  if self.date_column != 'False':
-      self.start_date = selection[self.date_column].min()
-      self.end_date = selection[self.date_column].max()
-      date_range = [date.date() for date in pd.date_range(start=self.start_date, end=self.end_date, freq='D') if date.date() in selection[self.date_column].tolist()]        
-      
-      st.write("          ")
-      st.sidebar.markdown("**Date Range**")
-      self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
-      if self.start_date == None:
-          st.sidebar.info('Please select a Start Date')
-          return 
-      # filtered_date_range = [date for date in date_range if date >= self.start_date]
-      self.end_date = st.sidebar.selectbox("Select End Date", [None] + date_range)
-
-      if self.end_date == None:
-          st.sidebar.info('Please select an End Date')
-          return 
-      elif self.start_date == self.end_date:
-          st.sidebar.warning('Select different dates for both Start and End Date')
-          return 
-      
-      elif self.start_date > self.end_date:
-          st.sidebar.warning('Start Date must be lower than End Date')
-          return 
+    if self.date_column != 'False':
+        self.start_date = selection[self.date_column].min()
+        self.end_date = selection[self.date_column].max()
+        date_range = [date.date() for date in pd.date_range(start=self.start_date, end=self.end_date, freq='D') if date.date() in selection[self.date_column].tolist()]        
+        
+        st.write("          ")
+        st.sidebar.markdown("**Date Range**")
+        self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
+        if self.start_date == None:
+            st.sidebar.info('Please select a Start Date')
+            return 
+        # filtered_date_range = [date for date in date_range if date >= self.start_date]
+        self.end_date = st.sidebar.selectbox("Select End Date", [None] + date_range)
+    
+        if self.end_date == None:
+            st.sidebar.info('Please select an End Date')
+            return 
+        elif self.start_date == self.end_date:
+            st.sidebar.warning('Select different dates for both Start and End Date')
+            return 
+        
+        elif self.start_date > self.end_date:
+            st.sidebar.warning('Start Date must be lower than End Date')
+            return 
     
     return 
 

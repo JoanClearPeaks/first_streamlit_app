@@ -19,7 +19,7 @@ class Outlier_Quantiles():
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')
-    
+    st.dataframe(selection)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
     st.sidebar.subheader('COLUMN', help="Select the target column.")
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(selection.columns), index=0, label_visibility="collapsed")

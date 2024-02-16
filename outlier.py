@@ -40,7 +40,7 @@ class Outlier_Quantiles():
     self.warning_dic = {}
 
     if self.date_column != 'False':
-      selection[self.date_column] = pd.to_datetime(selection[self.date_column], format='%Y%m%d')
+      selection[self.date_column] = pd.to_datetime(selection[self.date_column])
       self.start_date = selection[self.date_column].min()
       self.end_date = selection[self.date_column].max()
       date_range = [date.date() for date in pd.date_range(start=self.start_date, end=self.end_date, freq='D')]        

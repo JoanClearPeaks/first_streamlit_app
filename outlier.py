@@ -376,9 +376,40 @@ class Outlier_Quantiles():
 
     st.write('HOLA')
     return
+
+def matrix(self):
+  import streamlit as st
+  import pandas as pd
+  import seaborn as sns
+  import altair as alt
+  
+  # Datos
+  data = {'A': [45, 37, 42, 35, 39],
+          'B': [38, 31, 26, 28, 33],
+          'C': [10, 15, 17, 21, 12]
+          }
+  
+  df = pd.DataFrame(data)
+  
+  # Matriz de correlación
+  corr_matrix = df.corr()
+  
+  # Crear gráfico de calor con Altair
+  chart = alt.Chart(corr_matrix.reset_index().melt(id_vars='index')).mark_rect().encode(
+      x='index:N',
+      y='variable:N',
+      color='value:Q'
+  ).properties(
+      width=400,
+      height=400
+  )
+  
+  st.altair_chart(chart, use_container_width=True)
+  return
   
 a = Outlier_Quantiles()
-a.outlier_quantiles()
+# a.outlier_quantiles()
+a.matrix()
 
 
 

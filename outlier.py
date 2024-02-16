@@ -189,43 +189,43 @@ class Outlier_Quantiles():
 
       return True
 
-      if not check_outliers(selection):
-          return
+    if not check_outliers(selection):
+        return
 
-      self.outliers_count = self.df_outliers.shape[0]
-      self.df_outliers.index = self.df_outliers.index + 1      
-      self.df_result.index = self.df_result.index + 1 
+    self.outliers_count = self.df_outliers.shape[0]
+    self.df_outliers.index = self.df_outliers.index + 1      
+    self.df_result.index = self.df_result.index + 1 
 
-      st.write("          ")
-      st.subheader('Results')
+    st.write("          ")
+    st.subheader('Results')
 
-      if self.date_column != 'False':
-          self.total_rows_python = self.df_filtered_original.shape[0]
-          if self.rolling_period > 1:
-              col1, col2 = st.columns(2)
-          else:
-              col1, col2, col3 = st.columns(3)
+    if self.date_column != 'False':
+        self.total_rows_python = self.df_filtered_original.shape[0]
+        if self.rolling_period > 1:
+            col1, col2 = st.columns(2)
+        else:
+            col1, col2, col3 = st.columns(3)
 
-          col1.metric("OUTLIERS DETECTED", self.outliers_count)
-          
-          
-          if self.rolling_period > 1:
-              if self.warning_dic["ENABLED_GROUPING_DAY"]:
-                  col1.metric(f"GROUPS OF {self.rolling_period} DAYS", self.df_result.shape[0])
-              else:
-                  col1.metric(f"GROUPS OF {self.rolling_period} OBSERVATIONS", self.df_result.shape[0])
-              
-              col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique())
-              col2.metric(f"TOTAL OBSERVATIONS", self.total_rows_python) #self.df.shape[0] to have only total days that have been grouped
-          
-          else:
-              col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique())
-              col3.metric(f"TOTAL OBSERVATIONS", self.total_rows_python) #self.df.shape[0] to have only total days that have been grouped
+        col1.metric("OUTLIERS DETECTED", self.outliers_count)
+        
+        
+        if self.rolling_period > 1:
+            if self.warning_dic["ENABLED_GROUPING_DAY"]:
+                col1.metric(f"GROUPS OF {self.rolling_period} DAYS", self.df_result.shape[0])
+            else:
+                col1.metric(f"GROUPS OF {self.rolling_period} OBSERVATIONS", self.df_result.shape[0])
+            
+            col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique())
+            col2.metric(f"TOTAL OBSERVATIONS", self.total_rows_python) #self.df.shape[0] to have only total days that have been grouped
+        
+        else:
+            col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique())
+            col3.metric(f"TOTAL OBSERVATIONS", self.total_rows_python) #self.df.shape[0] to have only total days that have been grouped
 
-      else:
-          col1, col2 = st.columns(2)
-          col1.metric("OUTLIERS DETECTED", self.outliers_count)
-          col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0])
+    else:
+        col1, col2 = st.columns(2)
+        col1.metric("OUTLIERS DETECTED", self.outliers_count)
+        col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0])
     
     return 
 

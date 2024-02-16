@@ -1,2 +1,6 @@
 #requirements.txt
 snowflake-connector-python
+streamlit
+pandas
+numpy
+scipy

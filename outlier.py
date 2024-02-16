@@ -361,7 +361,7 @@ class Outlier_Quantiles():
     
     with container2:
         st.altair_chart(final_chart2, use_container_width=True)
-  return
+    return
   
 a = Outlier_Quantiles()
 a.outlier_quantiles()

@@ -314,14 +314,15 @@ class Outlier_Quantiles():
     # Líneas de umbrales con leyenda y ajuste de dominio del eje y
     
     lower_threshold_line = alt.Chart(pd.DataFrame({'Lower Threshold': [self.lower_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
-        y=alt.Y('Lower Threshold:Q', axis=alt.Axis(title='')),
-        tooltip=alt.Tooltip('Lower Threshold:Q', title='Lower Threshold')
+    y=alt.Y('Lower Threshold:Q', axis=alt.Axis(title='')),
+    tooltip=alt.Tooltip('Lower Threshold:Q', title='Valor numérico: Lower Threshold')
     )
-    
+
     upper_threshold_line = alt.Chart(pd.DataFrame({'Upper Threshold': [self.upper_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
         y=alt.Y('Upper Threshold:Q', axis=alt.Axis(title='')),
-        tooltip=alt.Tooltip('Upper Threshold:Q', title='Upper Threshold')
+        tooltip=alt.Tooltip('Upper Threshold:Q', title='Valor numérico: Upper Threshold')
     )
+
 
     
     

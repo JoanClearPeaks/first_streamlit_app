@@ -33,58 +33,36 @@ class Outlier_Quantiles():
     if self.date_column == None:
         st.sidebar.info('Please select a valid date column')
         return
-
-    no_nulls = selection.dropna(subset=[self.date_column])
-    no_nulls = no_nulls[self.date_column]
-    st.write(str(type(no_nulls[0])))
-
+    #------------------------------ PARAMETERS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    st.sidebar.divider()
+    st.sidebar.subheader('PARAMETERS')
     
-    
+   self.warning_dic = {}
+
+  if self.date_column != 'False':
+      self.start_date = selection[self.date_column].min()
+      self.end_date = selection[self.date_column].max()
+      date_range = [date.date() for date in pd.date_range(start=self.start_date, end=self.end_date, freq='D') if date.date() in selection[self.date_column].tolist()]        
       
+      st.write("          ")
+      st.sidebar.markdown("**Date Range**")
+      self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
+      if self.start_date == None:
+          st.sidebar.info('Please select a Start Date')
+          return 
+      # filtered_date_range = [date for date in date_range if date >= self.start_date]
+      self.end_date = st.sidebar.selectbox("Select End Date", [None] + date_range)
 
-    
-  #         return False
-          
-  #         elif 'int' not in str(selection[self.target_column].dtype) and 'float' not in str(selection[self.target_column].dtype):
-  #             st.sidebar.warning('Please select a NUMERICAL column')
-  #             st.write(selection[self.target_column].dtype)
-  #             return False
-  # st.sidebar.subheader('DATE COLUMN', help= "Select the date column")        
-  #         self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(selection.columns), index=0, label_visibility="collapsed")
-          
-  #         if self.date_column == None:
-  #             st.sidebar.info('Please select a valid date column')
-  #             return False
+      if self.end_date == None:
+          st.sidebar.info('Please select an End Date')
+          return 
+      elif self.start_date == self.end_date:
+          st.sidebar.warning('Select different dates for both Start and End Date')
+          return 
       
-  #    #------------------------------ PARAMETERS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  #         st.sidebar.divider()
-  #         st.sidebar.subheader('PARAMETERS')
-    # col1, col2, col3 = st.columns(3)
-    
-    self.warning_dic = {}
-    self.rolling_period = st.number_input('**Number of observations (mean)**', min_value=0, step=1)
-    self.warning_dic["ENABLED_GROUPING_DAY"] = st.checkbox('Group per day')
-    if self.rolling_period > 1:
-        col1, col2 = st.columns(2)
-    else:
-        col1, col2, col3 = st.columns(3)
-
-    col1.metric("OUTLIERS DETECTED", 1)
-    
-    
-    if self.rolling_period > 1:
-        if self.warning_dic["ENABLED_GROUPING_DAY"]:
-            col1.metric(f"GROUPS OF 2 DAYS CHECKED", 10)
-        else:
-            col1.metric(f"GROUPS OF 2 OBSERVATIONS CHECKED", 10)
-        
-        col2.metric("DAYS CHECKED", 12)
-        col2.metric(f"TOTAL OBSERVATIONS", 21) #self.df.shape[0] to have only total days that have been grouped
-    
-    else:
-        col2.metric("DAYS CHECKED", 12)
-        col3.metric(f"TOTAL OBSERVATIONS",21) #self.df.shape[0] to have only total days that have been grouped
-    st.write('hola')
+      elif self.start_date > self.end_date:
+          st.sidebar.warning('Start Date must be lower than End Date')
+          return 
     
     return 
 

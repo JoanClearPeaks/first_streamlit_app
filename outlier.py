@@ -28,9 +28,7 @@ class Outlier_Quantiles():
           st.sidebar.info('Please select a valid target column')
           return False
 
-    no_nulls = selection.dropna(subset=[self.date_column])
-    no_nulls = no_nulls[self.date_column]
-    st.write(str(type(no_nulls[0])))
+    
   #         return False
           
   #         elif 'int' not in str(selection[self.target_column].dtype) and 'float' not in str(selection[self.target_column].dtype):
@@ -48,31 +46,32 @@ class Outlier_Quantiles():
   #         st.sidebar.divider()
   #         st.sidebar.subheader('PARAMETERS')
     # col1, col2, col3 = st.columns(3)
+    
+    self.warning_dic = {}
+    self.rolling_period = st.number_input('**Number of observations (mean)**', min_value=0, step=1)
+    self.warning_dic["ENABLED_GROUPING_DAY"] = st.checkbox('Group per day')
+    if self.rolling_period > 1:
+        col1, col2 = st.columns(2)
     else:
-      self.warning_dic = {}
-      self.rolling_period = st.number_input('**Number of observations (mean)**', min_value=0, step=1)
-      self.warning_dic["ENABLED_GROUPING_DAY"] = st.checkbox('Group per day')
-      if self.rolling_period > 1:
-          col1, col2 = st.columns(2)
-      else:
-          col1, col2, col3 = st.columns(3)
-  
-      col1.metric("OUTLIERS DETECTED", 1)
-      
-      
-      if self.rolling_period > 1:
-          if self.warning_dic["ENABLED_GROUPING_DAY"]:
-              col1.metric(f"GROUPS OF 2 DAYS CHECKED", 10)
-          else:
-              col1.metric(f"GROUPS OF 2 OBSERVATIONS CHECKED", 10)
-          
-          col2.metric("DAYS CHECKED", 12)
-          col2.metric(f"TOTAL OBSERVATIONS", 21) #self.df.shape[0] to have only total days that have been grouped
-      
-      else:
-          col2.metric("DAYS CHECKED", 12)
-          col3.metric(f"TOTAL OBSERVATIONS",21) #self.df.shape[0] to have only total days that have been grouped
-      st.write('hola')
+        col1, col2, col3 = st.columns(3)
+
+    col1.metric("OUTLIERS DETECTED", 1)
+    
+    
+    if self.rolling_period > 1:
+        if self.warning_dic["ENABLED_GROUPING_DAY"]:
+            col1.metric(f"GROUPS OF 2 DAYS CHECKED", 10)
+        else:
+            col1.metric(f"GROUPS OF 2 OBSERVATIONS CHECKED", 10)
+        
+        col2.metric("DAYS CHECKED", 12)
+        col2.metric(f"TOTAL OBSERVATIONS", 21) #self.df.shape[0] to have only total days that have been grouped
+    
+    else:
+        col2.metric("DAYS CHECKED", 12)
+        col3.metric(f"TOTAL OBSERVATIONS",21) #self.df.shape[0] to have only total days that have been grouped
+    st.write('hola')
+    
     return 
 
 a = Outlier_Quantiles()

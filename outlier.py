@@ -389,7 +389,7 @@ class Outlier_Quantiles():
     with container2:
         st.altair_chart(final_chart2, use_container_width=True)
 
-    st.write('HOLA')
+    # st.write('HOLA')
     return
 
   def matrix(self):

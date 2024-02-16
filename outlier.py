@@ -26,7 +26,7 @@ class Outlier_Quantiles():
     
     if self.target_column == None:
           st.sidebar.info('Please select a valid target column')
-          return False
+          return
 
     
   #         return False
@@ -75,8 +75,8 @@ class Outlier_Quantiles():
     return 
 
 a = Outlier_Quantiles()
-if a.outlier_quantiles() == False:
-  break
+a.outlier_quantiles()
+
 
 
 

@@ -73,7 +73,7 @@ class Outlier_Quantiles():
   
       if self.rolling_period == 0:
           st.sidebar.info('Please insert a rolling period')
-          return False
+          return
         
     self.sensitivity = st.sidebar.slider('**Sensitivity value**', 0.0, 3.0, step = 0.1, value=1.5) #info necessary
 

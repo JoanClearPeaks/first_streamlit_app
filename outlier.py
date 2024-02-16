@@ -324,11 +324,13 @@ class Outlier_Quantiles():
     # )
 
     lower_threshold_line = alt.Chart(pd.DataFrame({'Lower Threshold': [self.lower_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
-    y=alt.Y('Lower Threshold:Q', axis=alt.Axis(title='Lower Threshold')),
+    y=alt.Y('Lower Threshold:Q'),
+    tooltip=alt.Tooltip(['Lower Threshold:Q'], format='.2f', title='Lower Threshold')
     )
     
     upper_threshold_line = alt.Chart(pd.DataFrame({'Upper Threshold': [self.upper_threshold]})).mark_rule(color='blue', strokeWidth=1.5).encode(
-        y=alt.Y('Upper Threshold:Q', axis=alt.Axis(title='Upper Threshold')),
+        y=alt.Y('Upper Threshold:Q'),
+        tooltip=alt.Tooltip(['Upper Threshold:Q'], format='.2f', title='Upper Threshold')
     )
 
 

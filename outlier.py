@@ -25,8 +25,20 @@ class Outlier_Quantiles():
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(selection.columns), index=0, label_visibility="collapsed")
     
     if self.target_column == None:
-          st.sidebar.info('Please select a valid target column')
-          return
+        st.sidebar.info('Please select a valid target column')
+        return
+
+    if self.date_column == None:
+        st.sidebar.info('Please select a valid date column')
+        return
+
+    no_nulls = selection.dropna(subset=[self.date_column])
+    no_nulls = no_nulls[self.date_column]
+    st.write(str(type(no_nulls[0])))
+
+    
+    
+      
 
     
   #         return False

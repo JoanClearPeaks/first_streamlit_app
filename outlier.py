@@ -26,6 +26,11 @@ class Outlier_Quantiles():
     
     if self.target_column == None:
           st.sidebar.info('Please select a valid target column')
+          return False
+
+    no_nulls = selection.dropna(subset=[self.date_column])
+    no_nulls = no_nulls[self.date_column]
+    st.write(str(type(no_nulls[0])))
   #         return False
           
   #         elif 'int' not in str(selection[self.target_column].dtype) and 'float' not in str(selection[self.target_column].dtype):
@@ -71,7 +76,8 @@ class Outlier_Quantiles():
     return 
 
 a = Outlier_Quantiles()
-a.outlier_quantiles()
+if a.outlier_quantiles() == False:
+  break
 
 
 

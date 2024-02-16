@@ -404,6 +404,19 @@ class Outlier_Quantiles():
     )
     
     st.altair_chart(chart, use_container_width=True)
+
+
+    import plotly.express as px
+    fig = px.imshow(corr_matrix,
+                labels=dict(x="Columnas", y="Columnas", color="Correlación"),
+                x=corr_matrix.columns,
+                y=corr_matrix.columns,
+                color_continuous_scale='RdBu_r')
+
+    fig.update_layout(title="Matriz de Correlación")
+    
+    st.plotly_chart(fig, use_container_width=True)
+
     return
   
 a = Outlier_Quantiles()

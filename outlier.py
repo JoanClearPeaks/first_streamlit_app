@@ -420,8 +420,8 @@ class Outlier_Quantiles():
     return
   
 a = Outlier_Quantiles()
-# a.outlier_quantiles()
-a.matrix()
+a.outlier_quantiles()
+# a.matrix()
 
 
 

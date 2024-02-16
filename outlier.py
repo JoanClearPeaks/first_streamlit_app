@@ -107,8 +107,8 @@ class Outlier_Quantiles():
                   
           if self.warning_dic["ENABLED_GROUPING_DAY"]:
               df_filtered = df_filtered.groupby(self.date_column)[self.target_column].mean().reset_index()
-              # with st.expander('Df filtered per day'):
-              #     st.dataframe(df_filtered)
+              with st.expander('Df filtered per day'):
+                  st.dataframe(df_filtered)
 
           # Calcular la media para grupos de tres valores
           if self.rolling_period != 1:

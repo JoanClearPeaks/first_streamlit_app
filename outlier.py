@@ -49,28 +49,28 @@ class Outlier_Quantiles():
       
       st.write("          ")
       st.sidebar.markdown("**Date Range**")
-      self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
+      # self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
 
-      start = st.date_input(
+      self.start_date = st.sidebar.date_input(
       "Select Start Date",
       None,
       min_value = min(date_range),
       max_value = max(date_range)
       )
 
-      end = st.date_input(
+      
+      if self.start_date == None:
+          st.sidebar.info('Please select a Start Date')
+          return 
+      # filtered_date_range = [date for date in date_range if date >= self.start_date]
+      # self.end_date = st.sidebar.selectbox("Select End Date", [None] + date_range)
+      self.end_date = st.sidebar.date_input(
       "Select End Date",
       None,
       min_value = min(date_range),
       max_value = max(date_range)
       )
       
-      if self.start_date == None:
-          st.sidebar.info('Please select a Start Date')
-          return 
-      # filtered_date_range = [date for date in date_range if date >= self.start_date]
-      self.end_date = st.sidebar.selectbox("Select End Date", [None] + date_range)
-  
       if self.end_date == None:
           st.sidebar.info('Please select an End Date')
           return 

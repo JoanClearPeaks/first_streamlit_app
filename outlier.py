@@ -21,7 +21,8 @@ class Outlier_Quantiles():
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')
-    st.dataframe(selection)
+    with st.expander('ORIGINAL DATA'):
+      st.dataframe(selection)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
     st.sidebar.subheader('COLUMN', help="Select the target column.")
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(selection.columns), index=0, label_visibility="collapsed")
@@ -41,6 +42,9 @@ class Outlier_Quantiles():
     
     self.warning_dic = {}
     selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
+    with st.expander('DATA CHANGE'):
+      st.dataframe(selection[self.date_column])
+      
     if self.date_column != 'False':
       selection[self.date_column] = pd.to_datetime(selection[self.date_column]).dt.date
       self.start_date1 = selection[self.date_column].min()
@@ -61,7 +65,7 @@ class Outlier_Quantiles():
         # Encontrar la fecha más cercana en el conjunto de datos
         self.start_date = min(date_range, key=lambda date: abs(date - self.start_date))
 
-      st.write(self.start_date)
+      st.write('Start Date:',self.start_date)
       
       if self.start_date == None:
           st.sidebar.info('Please select a Start Date')
@@ -79,7 +83,7 @@ class Outlier_Quantiles():
         # Encontrar la fecha más cercana en el conjunto de datos
         self.end_date = min(date_range, key=lambda date: abs(date - self.end_date))
 
-      st.write(self.end_date)
+      st.write('End Date:',self.end_date)
       
       if self.end_date == None:
           st.sidebar.info('Please select an End Date')

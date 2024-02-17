@@ -42,7 +42,7 @@ class Outlier_Quantiles():
     
     self.warning_dic = {}
     selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
-    selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')
+    # selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')
     with st.expander('DATA CHANGE'):
       st.dataframe(selection[self.date_column])
       

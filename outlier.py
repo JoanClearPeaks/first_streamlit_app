@@ -226,14 +226,10 @@ class Outlier_Quantiles():
             col3.metric(f"TOTAL OBSERVATIONS", self.total_rows_python) #self.df.shape[0] to have only total days that have been grouped
 
     else:
-        col1, col2, col3, col4, col5 = st.columns(5)
-        # col1.metric("OUTLIERS DETECTED", self.outliers_count)
-        # col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0])
-        col1.metric("DAYS CHECKED", self.outliers_count)
-        col2.metric("TOTAL OBSERVATIONS", self.df_result.shape[0])
-        col3.metric("MEAN", 1900.40)
-        col4.metric("MEDIAN", 1800)
-        col5.metric("STD", 180000)
+        col1, col2 = st.columns(2)
+        col1.metric("OUTLIERS DETECTED", self.outliers_count)
+        col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0])
+        
     
      
   #---------------------------------------WARNINGS--------------------------------

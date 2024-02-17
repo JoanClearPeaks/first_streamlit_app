@@ -259,8 +259,8 @@ class Outlier_Quantiles():
         # self.df_result[self.date_column] = self.df_result[self.date_column].apply(lambda x: datetime.strptime(x, "%y-%m-%d").strftime("%d/%m/%y"))
     container = st.container()
     if self.date_column == 'False':
-      self.df_result = self.df_result.reset_index(inplace=True)
-      df_result.rename(columns={'index': 'observations'}, inplace=True)
+      self.df_result = self.df_result.reset_index()
+      df_result.loc[:, 'observations'] = df_result.index
       st.dataframe(self.df_result)
     
     x_column = list(self.df_result.columns)[0]

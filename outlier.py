@@ -57,6 +57,11 @@ class Outlier_Quantiles():
       max_value=max(date_range)
       )
 
+      if self.start_date not in date_range and self.start_date != None:
+        # Encontrar la fecha más cercana en el conjunto de datos
+        self.start_date = min(date_range, key=lambda date: abs(date - self.start_date))
+
+      st.write(self.start_date)
       
       if self.start_date == None:
           st.sidebar.info('Please select a Start Date')
@@ -69,6 +74,12 @@ class Outlier_Quantiles():
       min_value = min(date_range),
       max_value = max(date_range)
       )
+
+      if self.end_date not in date_range and self.end_date != None:
+        # Encontrar la fecha más cercana en el conjunto de datos
+        self.end_date = min(date_range, key=lambda date: abs(date - self.end_date))
+
+      st.write(self.end_date)
       
       if self.end_date == None:
           st.sidebar.info('Please select an End Date')

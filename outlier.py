@@ -260,9 +260,9 @@ class Outlier_Quantiles():
     container = st.container()
     if self.date_column == 'False':
       self.df_result = self.df_result.reset_index()
-      df_result.loc[:, 'observations'] = df_result.index
       st.dataframe(self.df_result)
-    
+      self.df_result.rename(columns={'index': 'observations'}, inplace=True)
+      st.dataframe(self.df_result)
     x_column = list(self.df_result.columns)[0]
     y_column = list(self.df_result.columns)[1]
     outlier_column = 'OUTLIER'

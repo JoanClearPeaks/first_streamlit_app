@@ -51,8 +51,15 @@ class Outlier_Quantiles():
       st.sidebar.markdown("**Date Range**")
       self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
 
-      d = st.date_input(
-      "Select your vacation for next year",
+      start = st.date_input(
+      "Select Start Date",
+      None,
+      min_value = min(date_range),
+      max_value = max(date_range)
+      )
+
+      end = st.date_input(
+      "Select End Date",
       None,
       min_value = min(date_range),
       max_value = max(date_range)

@@ -260,9 +260,8 @@ class Outlier_Quantiles():
     container = st.container()
     if self.date_column == 'False':
       self.df_result = self.df_result.reset_index()
-      st.dataframe(self.df_result)
-      self.df_result.rename(columns={'index': 'observations'}, inplace=True)
-      st.dataframe(self.df_result)
+      self.df_result.rename(columns={'index': 'observation'}, inplace=True)
+
     x_column = list(self.df_result.columns)[0]
     y_column = list(self.df_result.columns)[1]
     outlier_column = 'OUTLIER'
@@ -300,7 +299,7 @@ class Outlier_Quantiles():
     
     else:
         chart = alt.Chart(self.df_result).mark_point().encode(
-            x=f'index:N',
+            x=f'observation:N',
             y=alt.Y(f'{y_column}:Q', scale=alt.Scale(domain=[min_y - padding, max_y + padding]), axis=alt.Axis(title=y_column)),  # Ajustar el dominio del eje y
             color=alt.condition(
                 alt.datum[outlier_column],
@@ -308,7 +307,7 @@ class Outlier_Quantiles():
                 alt.value('green')  # Si OUTLIER es False, color verde
             ),
             tooltip=[
-                'index:N',
+                'observation:N',
                 f'{y_column}:Q',
                 f'{outlier_column}:N'
             ]
@@ -342,7 +341,7 @@ class Outlier_Quantiles():
     if self.date_column == 'False': 
     # Sombreado entre umbrales
         shaded_area = alt.Chart(self.df_result).mark_area(opacity=0.15, color='yellow').encode(
-            x='index:N',
+            x='observation:N',
             y='lower_threshold:Q',
             y2='upper_threshold:Q'
             # tooltip=[
@@ -412,8 +411,8 @@ class Outlier_Quantiles():
     corr_matrix = df.corr()
     
     # Crear gráfico de calor con Altair
-    chart = alt.Chart(corr_matrix.reset_index().melt(id_vars='index')).mark_rect().encode(
-        x='index:N',
+    chart = alt.Chart(corr_matrix.reset_index().melt(id_vars='observation')).mark_rect().encode(
+        x='observation:N',
         y='variable:N',
         color='value:Q'
     ).properties(

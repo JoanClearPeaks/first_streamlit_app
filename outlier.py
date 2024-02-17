@@ -53,7 +53,7 @@ class Outlier_Quantiles():
 
       d = st.date_input(
       "Select your vacation for next year",
-      (None,None),
+      None,
       min_value = min(date_range),
       max_value = max(date_range)
       )

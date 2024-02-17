@@ -52,7 +52,7 @@ class Outlier_Quantiles():
       # self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
 
       self.start_date = st.sidebar.date_input(
-      "Select Start Date",
+      "Select Start Date", None,
       min_value=min(date_range),
       max_value=max(date_range)
       )

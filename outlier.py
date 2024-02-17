@@ -43,13 +43,21 @@ class Outlier_Quantiles():
 
     if self.date_column != 'False':
       selection[self.date_column] = pd.to_datetime(selection[self.date_column]).dt.date
-      self.start_date = selection[self.date_column].min()
-      self.end_date = selection[self.date_column].max()
-      date_range = [date.date() for date in pd.date_range(start=self.start_date, end=self.end_date, freq='D')]        
+      self.start_date1 = selection[self.date_column].min()
+      self.end_date1 = selection[self.date_column].max()
+      date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D')]        
       
       st.write("          ")
       st.sidebar.markdown("**Date Range**")
       self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
+
+      d = st.date_input(
+      "Select your vacation for next year",
+      (None, None),
+      self.start_date1,
+      self.end_date1
+      )
+      
       if self.start_date == None:
           st.sidebar.info('Please select a Start Date')
           return 

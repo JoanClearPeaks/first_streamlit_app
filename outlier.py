@@ -57,7 +57,6 @@ class Outlier_Quantiles():
       st.write("          ")
       st.sidebar.markdown("**Date Range**")
       # self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
-      st.write(date_range)
       st.write(date_intersection)
       
       self.start_date = st.sidebar.date_input(

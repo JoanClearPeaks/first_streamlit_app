@@ -93,7 +93,7 @@ class Outlier_Quantiles():
       if self.start_date not in date_intersection:
         # Encontrar la fecha más cercana en el conjunto de datos
         self.start_date_prov = min(date for date in date_intersection if date > self.start_date)
-        st.sidebar.info(f'Start Date {self.start_date} is not in your data. \n\nNearest date selected: {self.start_date_prov}')
+        st.sidebar.info(f'Start Date {self.start_date} is not in your data. \n\nNearest Start Date selected: {self.start_date_prov}')
         self.start_date = self.start_date_prov
         start_changed = True
 
@@ -101,7 +101,7 @@ class Outlier_Quantiles():
       if self.end_date not in date_intersection:
         # Encontrar la fecha más cercana en el conjunto de datos
         self.end_date_prov = min(date for date in date_intersection if date > self.end_date)
-        st.sidebar.info(f'End Date {self.end_date} is not in your data. \n\nNearest date selected: {self.end_date_prov}')
+        st.sidebar.info(f'End Date {self.end_date} is not in your data. \n\nNearest End Date selected: {self.end_date_prov}')
         self.end_date = self.end_date_prov
         end_changed = True
 

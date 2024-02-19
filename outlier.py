@@ -89,7 +89,8 @@ class Outlier_Quantiles():
       "Select End Date",
       None,
       min_value = min(date_range),
-      max_value = max(date_range)
+      max_value = max(date_range),
+      help = f'End Date {self.end_date} is not in your data. Instead, the nearest date {self.end_date_prov} that appears in the data has been selected'
       )
 
       if self.end_date == None:

@@ -109,13 +109,13 @@ class Outlier_Quantiles():
 
       
 
-      if self.start_date == self.end_date:
-          st.sidebar.warning(f'Start Date (modified = {start_changed}) and End Date (modified = {end_changed}) must be different')
-          return 
+      # if self.start_date == self.end_date:
+      #     st.sidebar.warning(f'Start Date (modified = {start_changed}) and End Date (modified = {end_changed}) must be different')
+      #     return 
       
-      elif self.start_date > self.end_date:
-          st.sidebar.warning(f'Start Date (modified = {start_changed}) must be lower than End Date (modified = {end_changed})')
-          return  
+      # elif self.start_date > self.end_date:
+      #     st.sidebar.warning(f'Start Date (modified = {start_changed}) must be lower than End Date (modified = {end_changed})')
+      #     return  
 
       self.options = st.sidebar.radio(
                       "**Total Threshold or Selection Threshold**",

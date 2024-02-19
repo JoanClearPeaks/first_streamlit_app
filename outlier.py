@@ -65,8 +65,10 @@ class Outlier_Quantiles():
 
       if self.start_date not in date_range and self.start_date != None:
         # Encontrar la fecha más cercana en el conjunto de datos
-        self.start_date = min(date_range, key=lambda date: abs(date - self.start_date))
-
+        self.start_date_prov = min(date_range, key=lambda date: abs(date - self.start_date))
+        st.sidebar.warning(f'Date {self.start_date} is not in your data. Instead, the nearest date {self.start_date_prov} that appears in the data has been selected')
+        self.start_date = self.start_date_prov
+      
       st.write('Start Date:',self.start_date)
       
       if self.start_date == None:

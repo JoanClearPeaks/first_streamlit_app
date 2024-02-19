@@ -21,8 +21,8 @@ class Outlier_Quantiles():
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')
-    with st.expander('ORIGINAL DATA'):
-      st.dataframe(selection)
+    # with st.expander('ORIGINAL DATA'):
+    #   st.dataframe(selection)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
     st.sidebar.subheader('COLUMN', help="Select the target column.")
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(selection.columns), index=0, label_visibility="collapsed")
@@ -64,7 +64,7 @@ class Outlier_Quantiles():
       min_value=min(date_range),
       max_value=max(date_range)
       )
-      st.write('Initial start date', self.start_date)
+      # st.write('Initial start date', self.start_date)
 
       if self.start_date == None:
           st.sidebar.info('Please select a Start Date')
@@ -97,7 +97,7 @@ class Outlier_Quantiles():
       #   # Encontrar la fecha más cercana en el conjunto de datos
       #   self.end_date = min(date_range, key=lambda date: abs(date - self.end_date))
 
-      st.write('End Date:',self.end_date)
+      # st.write('End Date:',self.end_date)
       
       
       if self.start_date == self.end_date:

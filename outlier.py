@@ -59,11 +59,13 @@ class Outlier_Quantiles():
       # self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
       st.write(date_range)
       st.write(date_intersection)
+      
       self.start_date = st.sidebar.date_input(
       "Select Start Date", None,
       min_value=min(date_range),
       max_value=max(date_range)
       )
+      st.write('Initial start date', self.start_date)
 
       if self.start_date not in date_intersection and self.start_date != None:
         # Encontrar la fecha más cercana en el conjunto de datos

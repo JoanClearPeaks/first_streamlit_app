@@ -70,12 +70,6 @@ class Outlier_Quantiles():
           st.sidebar.info('Please select a Start Date')
           return
 
-      if self.start_date not in date_intersection:
-        # Encontrar la fecha más cercana en el conjunto de datos
-        self.start_date_prov = min(date_intersection, key=lambda date: abs(date - self.start_date))
-        st.sidebar.info(f'Start Date {self.start_date} is not in your data. \n\nNearest date selected: {self.start_date_prov}')
-        self.start_date = self.start_date_prov
-      
       self.end_date = st.sidebar.date_input(
       "Select End Date",
       None,
@@ -86,27 +80,26 @@ class Outlier_Quantiles():
       if self.end_date == None:
           st.sidebar.info('Please select an End Date')
           return 
-        
-      if self.end_date not in date_intersection:
-        # Encontrar la fecha más cercana en el conjunto de datos
-        self.end_date_prov = min(date_intersection, key=lambda date: abs(date - self.end_date))
-        st.sidebar.info(f'End Date {self.end_date} is not in your data. \n\nNearest date selected: {self.end_date_prov}')
-        self.end_date = self.end_date_prov
-
-      # if self.end_date not in date_range and self.end_date != None:
-      #   # Encontrar la fecha más cercana en el conjunto de datos
-      #   self.end_date = min(date_range, key=lambda date: abs(date - self.end_date))
-
-      # st.write('End Date:',self.end_date)
       
-      
-      if self.start_date == self.end_date:
+      elif self.start_date == self.end_date:
           st.sidebar.warning('Select different dates for both Start and End Date')
           return 
       
       elif self.start_date > self.end_date:
           st.sidebar.warning('Start Date must be lower than End Date')
           return 
+
+      if self.start_date not in date_intersection:
+        # Encontrar la fecha más cercana en el conjunto de datos
+        self.start_date_prov = min(date_intersection, key=lambda date: abs(date - self.start_date))
+        st.sidebar.info(f'Start Date {self.start_date} is not in your data. \n\nNearest date selected: {self.start_date_prov}')
+        self.start_date = self.start_date_prov
+        
+      if self.end_date not in date_intersection:
+        # Encontrar la fecha más cercana en el conjunto de datos
+        self.end_date_prov = min(date_intersection, key=lambda date: abs(date - self.end_date))
+        st.sidebar.info(f'End Date {self.end_date} is not in your data. \n\nNearest date selected: {self.end_date_prov}')
+        self.end_date = self.end_date_prov
 
       self.options = st.sidebar.radio(
                       "**Total Threshold or Selection Threshold**",

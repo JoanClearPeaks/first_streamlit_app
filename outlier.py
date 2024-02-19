@@ -67,7 +67,11 @@ class Outlier_Quantiles():
       )
       st.write('Initial start date', self.start_date)
 
-      if self.start_date not in date_intersection and self.start_date != None:
+      if self.start_date == None:
+          st.sidebar.info('Please select a Start Date')
+          return
+
+      elif self.start_date not in date_intersection:
         # Encontrar la fecha más cercana en el conjunto de datos
         self.start_date_prov = min(date_intersection, key=lambda date: abs(date - self.start_date))
         st.sidebar.warning(f'Start Date {self.start_date} is not in your data. Instead, the nearest date {self.start_date_prov} that appears in the data has been selected')
@@ -75,9 +79,7 @@ class Outlier_Quantiles():
       
       st.write('Start Date:',self.start_date)
       
-      if self.start_date == None:
-          st.sidebar.info('Please select a Start Date')
-          return 
+       
       # filtered_date_range = [date for date in date_range if date >= self.start_date]
       # self.end_date = st.sidebar.selectbox("Select End Date", [None] + date_range)
       self.end_date = st.sidebar.date_input(

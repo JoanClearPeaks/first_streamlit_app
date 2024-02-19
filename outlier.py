@@ -70,13 +70,11 @@ class Outlier_Quantiles():
           st.sidebar.info('Please select a Start Date')
           return
 
-      
-      
-      
       if self.start_date not in date_intersection:
         # Encontrar la fecha más cercana en el conjunto de datos
         self.start_date_prov = min(date_intersection, key=lambda date: abs(date - self.start_date))
-        st.sidebar.warning(f'Start Date {self.start_date} is not in your data. Instead, the nearest date {self.start_date_prov} that appears in the data has been selected')
+        st.sidebar.info(f'Start Date {self.start_date} is not in your data. 
+                          Nearest date: {self.start_date_prov}')
         self.start_date = self.start_date_prov
       
       st.write('Start Date:',self.start_date)

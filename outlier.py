@@ -52,7 +52,7 @@ class Outlier_Quantiles():
       self.start_date1 = selection[self.date_column].min()
       self.end_date1 = selection[self.date_column].max()
       date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D')] 
-      interseccion_dates = list(set(date_range).intersection(list(selection[self.date_column]))
+      interseccion_dates = list(set(date_range).intersection(list(selection[self.date_column])))
       
       st.write("          ")
       st.sidebar.markdown("**Date Range**")

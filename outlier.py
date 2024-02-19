@@ -52,7 +52,7 @@ class Outlier_Quantiles():
       self.start_date1 = selection[self.date_column].min()
       self.end_date1 = selection[self.date_column].max()
       date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D')] 
-      interseccion_dates = list(set(date_range).intersection(list(selection[self.date_column])))
+      date_intersection = list(set(date_range).intersection(list(selection[self.date_column])))
       
       st.write("          ")
       st.sidebar.markdown("**Date Range**")
@@ -65,11 +65,11 @@ class Outlier_Quantiles():
       max_value=max(date_range)
       )
 
-      # if self.start_date not in date_range and self.start_date != None:
-      #   # Encontrar la fecha más cercana en el conjunto de datos
-      #   self.start_date_prov = min(date_range, key=lambda date: abs(date - self.start_date))
-      #   st.sidebar.warning(f'Date {self.start_date} is not in your data. Instead, the nearest date {self.start_date_prov} that appears in the data has been selected')
-      #   self.start_date = self.start_date_prov
+      if self.start_date not in date_intersection and self.start_date != None:
+        # Encontrar la fecha más cercana en el conjunto de datos
+        self.start_date_prov = min(date_intersection, key=lambda date: abs(date - self.start_date))
+        st.sidebar.warning(f'Date {self.start_date} is not in your data. Instead, the nearest date {self.start_date_prov} that appears in the data has been selected')
+        self.start_date = self.start_date_prov
       
       st.write('Start Date:',self.start_date)
       

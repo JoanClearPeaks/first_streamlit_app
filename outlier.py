@@ -70,12 +70,28 @@ class Outlier_Quantiles():
           st.sidebar.info('Please select a Start Date')
           return
 
+      start_changed = False
+      if self.start_date not in date_intersection:
+        # Encontrar la fecha más cercana en el conjunto de datos
+        self.start_date_prov = min(date for date in date_intersection if date > self.start_date)
+        st.sidebar.info(f'Start Date {self.start_date} is not in your data. \n\nNearest Start Date selected: {self.start_date_prov}')
+        self.start_date = self.start_date_prov
+        start_changed = True
+        
       self.end_date = st.sidebar.date_input(
       "Select End Date",
       None,
       min_value = min(date_range),
       max_value = max(date_range)
       )
+
+      end_changed = False
+      if self.end_date not in date_intersection:
+        # Encontrar la fecha más cercana en el conjunto de datos
+        self.end_date_prov = min(date for date in date_intersection if date > self.end_date)
+        st.sidebar.info(f'End Date {self.end_date} is not in your data. \n\nNearest End Date selected: {self.end_date_prov}')
+        self.end_date = self.end_date_prov
+        end_changed = True
 
       if self.end_date == None:
           st.sidebar.info('Please select an End Date')
@@ -89,21 +105,9 @@ class Outlier_Quantiles():
           st.sidebar.warning('Start Date must be lower than End Date')
           return 
 
-      start_changed = False
-      if self.start_date not in date_intersection:
-        # Encontrar la fecha más cercana en el conjunto de datos
-        self.start_date_prov = min(date for date in date_intersection if date > self.start_date)
-        st.sidebar.info(f'Start Date {self.start_date} is not in your data. \n\nNearest Start Date selected: {self.start_date_prov}')
-        self.start_date = self.start_date_prov
-        start_changed = True
+      
 
-      end_changed = False
-      if self.end_date not in date_intersection:
-        # Encontrar la fecha más cercana en el conjunto de datos
-        self.end_date_prov = min(date for date in date_intersection if date > self.end_date)
-        st.sidebar.info(f'End Date {self.end_date} is not in your data. \n\nNearest End Date selected: {self.end_date_prov}')
-        self.end_date = self.end_date_prov
-        end_changed = True
+      
 
       if self.start_date == self.end_date:
           st.sidebar.warning(f'Start Date (modified = {start_changed}) and End Date (modified = {end_changed}) must be different')

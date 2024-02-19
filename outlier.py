@@ -70,13 +70,9 @@ class Outlier_Quantiles():
           st.sidebar.info('Please select a Start Date')
           return
 
-      self.end_date = st.sidebar.date_input(
-      "Select End Date",
-      None,
-      min_value = min(date_range),
-      max_value = max(date_range)
-      )
-
+      
+      self.end_date = None
+      
       if self.start_date not in date_intersection:
         # Encontrar la fecha más cercana en el conjunto de datos
         self.start_date_prov = min(date_intersection, key=lambda date: abs(date - self.start_date))
@@ -90,7 +86,13 @@ class Outlier_Quantiles():
       # filtered_date_range = [date for date in date_range if date >= self.start_date]
       # self.end_date = st.sidebar.selectbox("Select End Date", [None] + date_range)
       
-
+      self.end_date = st.sidebar.date_input(
+      "Select End Date",
+      None,
+      min_value = min(date_range),
+      max_value = max(date_range)
+      )
+      
       if self.end_date not in date_intersection and self.end_date != None:
         # Encontrar la fecha más cercana en el conjunto de datos
         self.end_date_prov = min(date_intersection, key=lambda date: abs(date - self.end_date))

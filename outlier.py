@@ -278,7 +278,7 @@ class Outlier_Quantiles():
     else:
         col1, col2 = st.columns(2)
         col1.metric("OUTLIERS DETECTED", self.outliers_count)
-        col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0])
+        col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0], help = 'Total rows checked in your dataset')
         
     
      

@@ -265,7 +265,7 @@ class Outlier_Quantiles():
         
         if self.rolling_period > 1:
             if self.warning_dic["ENABLED_GROUPING_DAY"]:
-                col1.metric(f"GROUPS OF {self.rolling_period} DAYS", self.df_result.shape[0], help = "As it is grouped by day, each group will consist of three unique days without repetition. The mean of the values for repeated days will be calculated to simplify and represent each date with a single value." )
+                col1.metric(f"GROUPS OF {self.rolling_period} DAYS", self.df_result.shape[0], help = f"As it is grouped by day, each group will consist of {self.rolling_period} unique days without repetition. The mean of the values for repeated days will be calculated to simplify and represent each date with a single value." )
             else:
                 col1.metric(f"GROUPS OF {self.rolling_period} OBSERVATIONS", self.df_result.shape[0], help = 'Each group will consist of three observations, with the possibility to have repeated dates.')
             

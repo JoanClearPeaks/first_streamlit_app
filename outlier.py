@@ -41,13 +41,14 @@ class Outlier_Quantiles():
     st.sidebar.subheader('PARAMETERS')
     
     self.warning_dic = {}
-    selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
-    selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')
-    selection[self.date_column] = selection[self.date_column].replace('2019-09-24', '2019-09-23')
-    with st.expander('DATA CHANGE'):
-      st.dataframe(selection[self.date_column])
       
     if self.date_column != 'False':
+      selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
+      selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')
+      selection[self.date_column] = selection[self.date_column].replace('2019-09-24', '2019-09-23')
+      with st.expander('DATA CHANGE'):
+        st.dataframe(selection[self.date_column])
+        
       selection[self.date_column] = pd.to_datetime(selection[self.date_column]).dt.date
       self.start_date1 = selection[self.date_column].min()
       self.end_date1 = selection[self.date_column].max()

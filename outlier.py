@@ -345,7 +345,7 @@ class Outlier_Quantiles():
                 f'{y_column}:Q',
                 f'{outlier_column}:N'
             ]
-        ).properties(width=800, height=400)
+        ).properties(width=1500, height=400)
     
     else:
         chart = alt.Chart(self.df_result).mark_point().encode(

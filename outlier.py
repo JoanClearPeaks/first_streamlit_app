@@ -265,21 +265,21 @@ class Outlier_Quantiles():
         
         if self.rolling_period > 1:
             if self.warning_dic["ENABLED_GROUPING_DAY"]:
-                col1.metric(f"GROUPS OF {self.rolling_period} DAYS", self.df_result.shape[0])
+                col1.metric(f"GROUPS OF {self.rolling_period} DAYS", self.df_result.shape[0], help = "As it is grouped by day, each group will consist of three unique days without repetition. The mean of the values for repeated days will be calculated to simplify and represent each date with a single value." )
             else:
-                col1.metric(f"GROUPS OF {self.rolling_period} OBSERVATIONS", self.df_result.shape[0])
+                col1.metric(f"GROUPS OF {self.rolling_period} OBSERVATIONS", self.df_result.shape[0], help = 'Each group will consist of three observations, with the possibility to have repeated dates.')
             
-            col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique())
-            col2.metric(f"TOTAL OBSERVATIONS", self.total_rows_python) #self.df.shape[0] to have only total days that have been grouped
+            col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique(), help = 'Unique days checked within the specified date range. If DAYS CHECKED equals TOTAL OBSERVATIONS, it indicates that there are no repeated days.')
+            col2.metric(f"TOTAL OBSERVATIONS", self.total_rows_python, help = 'Total observations/rows checked within the specified date range') #self.df.shape[0] to have only total days that have been grouped
         
         else:
-            col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique())
-            col3.metric(f"TOTAL OBSERVATIONS", self.total_rows_python) #self.df.shape[0] to have only total days that have been grouped
+            col2.metric("DAYS CHECKED", self.df_filtered_original[self.date_column].nunique(), help = 'Unique days checked within the specified date range. If DAYS CHECKED equals TOTAL OBSERVATIONS, it indicates that there are no repeated days.')
+            col3.metric(f"TOTAL OBSERVATIONS", self.total_rows_python, help = 'Total observations/rows checked within the specified date range') #self.df.shape[0] to have only total days that have been grouped
 
     else:
         col1, col2 = st.columns(2)
         col1.metric("OUTLIERS DETECTED", self.outliers_count)
-        col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0], help = 'Total rows checked in your dataset')
+        col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0], help = 'Total observations/rows checked in your dataset')
         
     
      

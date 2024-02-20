@@ -333,7 +333,7 @@ class Outlier_Quantiles():
     if self.date_column != 'False':
     # Crear el gráfico de Altair con líneas de umbrales y sombreado
         chart = alt.Chart(self.df_result).mark_point().encode(
-            x=alt.X(f'{x_column}:N', axis=alt.Axis(labelAngle=45)),
+            x=f'{x_column}:N',
             y=alt.Y(f'{y_column}:Q', scale=alt.Scale(domain=[min_y - padding, max_y + padding]), axis=alt.Axis(title=y_column)),  # Ajustar el dominio del eje y
             color=alt.condition(
                 alt.datum[outlier_column],

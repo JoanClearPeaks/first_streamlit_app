@@ -114,6 +114,15 @@ class Outlier_Quantiles():
       max_value = max(date_range)
       )
 
+      st.subheader('Start Date')
+      st.write(self.start_date)
+      st.write(type(self.start_date))
+
+      st.subheader('End Date')
+      st.write(self.end_date)
+      st.write(type(self.end_date))
+      
+
       end_changed = False
       if self.end_date not in date_intersection:
         # Encontrar la fecha más cercana en el conjunto de datos

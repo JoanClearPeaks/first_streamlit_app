@@ -31,10 +31,7 @@ class Outlier_Quantiles():
                   selection[col] = pd.to_datetime(selection[col])
               except ValueError:
                   pass
-    st.subheader('Dtypes2')
-    st.write(selection.dtypes)
-    st.write(selection['DATES'][0])
-    st.write(type(selection['DATES'][0]))
+
     # with st.expander('ORIGINAL DATA'):
     #   st.dataframe(selection)
     # selection['DATES'] = selection['DATES'].dt.date
@@ -48,13 +45,19 @@ class Outlier_Quantiles():
         return
     st.sidebar.subheader('DATE COLUMN', help= "Select the date column")        
     date_columns = selection.select_dtypes(include=['datetime']).columns.tolist()
-    st.write('Date columns',date_columns)
     self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(date_columns), index=0, label_visibility="collapsed")
 
     
     if self.date_column == None:
         st.sidebar.info('Please select a valid date column')
         return
+
+    elif 'datetime' not in str(selection[self.date_column].dtype):
+        st.sidebar.info('Please select a DATETIME column')
+        st.write(selection[self.date_column].dtype)
+        return 
+        
+    selection[self.date_column] = selection[self.date_column].dt.date
     #------------------------------ PARAMETERS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     st.sidebar.divider()
     st.sidebar.subheader('PARAMETERS')
@@ -73,20 +76,12 @@ class Outlier_Quantiles():
       # selection[self.date_column] = pd.to_datetime(selection[self.date_column]).dt.date
       self.start_date1 = selection[self.date_column].min()
       self.end_date1 = selection[self.date_column].max()
-      st.write(self.start_date1,self.end_date1)
-      date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D')]
-      date_range2 = [date for date in pd.date_range(start=self.start_date1, end=self.end_date1)]
-      date_range3 = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1)]
-      st.write(date_range,date_range2,date_range3)
-      date_change = pd.to_datetime(selection[self.date_column]).dt.date
-      date_intersection = list(set(date_range).intersection(list(date_change)))
-      st.write('Intersection',list(date_change))
-      st.write('Set',list(set(date_range)))
+      date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D') if date.date() in selection[self.date_column].tolist()]
+      
       
       st.write("          ")
       st.sidebar.markdown("**Date Range**")
       # self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
-      st.write(date_intersection)
       
       self.start_date = st.sidebar.date_input(
       "Select Start Date", None,
@@ -100,9 +95,9 @@ class Outlier_Quantiles():
           return
 
       start_changed = False
-      if self.start_date not in date_intersection:
+      if self.start_date not in date_range:
         # Encontrar la fecha más cercana en el conjunto de datos
-        self.start_date_prov = min(date for date in date_intersection if date > self.start_date)
+        self.start_date_prov = min(date for date in date_range if date > self.start_date)
         st.sidebar.info(f'Start Date {self.start_date} is not in your data. \n\nNearest Start Date selected: {self.start_date_prov}')
         self.start_date = self.start_date_prov
         start_changed = True
@@ -114,19 +109,10 @@ class Outlier_Quantiles():
       max_value = max(date_range)
       )
 
-      st.subheader('Start Date')
-      st.write(self.start_date)
-      st.write(type(self.start_date))
-
-      st.subheader('End Date')
-      st.write(self.end_date)
-      st.write(type(self.end_date))
-      
-
       end_changed = False
-      if self.end_date not in date_intersection:
+      if self.end_date not in date_range:
         # Encontrar la fecha más cercana en el conjunto de datos
-        self.end_date_prov = min(date for date in date_intersection if date > self.end_date)
+        self.end_date_prov = min(date for date in date_range if date > self.end_date)
         st.sidebar.info(f'End Date {self.end_date} is not in your data. \n\nNearest End Date selected: {self.end_date_prov}')
         self.end_date = self.end_date_prov
         end_changed = True

@@ -71,7 +71,10 @@ class Outlier_Quantiles():
       self.start_date1 = selection[self.date_column].min()
       self.end_date1 = selection[self.date_column].max()
       st.write(self.start_date1,self.end_date1)
-      date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D')] 
+      date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D')]
+      date_range2 = [date for date in pd.date_range(start=self.start_date1, end=self.end_date1)]
+      date_range3 = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1)]
+      st.write(date_range,date_range2,date_range3)
       date_intersection = list(set(date_range).intersection(list(selection[self.date_column])))
       
       st.write("          ")

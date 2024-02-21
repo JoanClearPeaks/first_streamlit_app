@@ -38,7 +38,8 @@ class Outlier_Quantiles():
     # st.write(selection.dtypes)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
     st.sidebar.subheader('COLUMN', help="Select the target column.")
-    self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(selection.columns), index=0, label_visibility="collapsed")
+    numeric_columns = selection.select_dtypes(include=['float','int']).columns.tolist()      
+    self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(numeric_columns), index=0, label_visibility="collapsed")
     
     if self.target_column == None:
         st.sidebar.info('Please select a valid target column')

@@ -76,7 +76,7 @@ class Outlier_Quantiles():
       date_range3 = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1)]
       st.write(date_range,date_range2,date_range3)
       date_intersection = list(set(date_range).intersection(list(selection[self.date_column])))
-      st.write('Intersection',list(selection[self.date_column]))
+      st.write('Intersection',list(selection[self.date_column].date())
       st.write('Set',list(set(date_range)))
       
       st.write("          ")

@@ -77,7 +77,7 @@ class Outlier_Quantiles():
       st.write(date_range,date_range2,date_range3)
       date_intersection = list(set(date_range).intersection(list(selection[self.date_column])))
       st.write('Intersection',list(selection[self.date_column]))
-      st.write('Set',list(set(date_range))
+      st.write('Set',list(set(date_range)))
       
       st.write("          ")
       st.sidebar.markdown("**Date Range**")

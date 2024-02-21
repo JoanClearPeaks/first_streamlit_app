@@ -48,6 +48,12 @@ class Outlier_Quantiles():
       st.subheader('TYPE2')
       # Imprimir los tipos de datos específicos de las columnas de tipo 'object'
       st.write(selection.select_dtypes(include=['object']).applymap(type))
+      st.subheader('TYPE3')
+      # Imprimir los tipos de datos específicos de las columnas de tipo 'object'
+      st.write(selection.select_dtypes(include=['object']))
+      st.subheader('TYPE4')
+      # Imprimir los tipos de datos específicos de las columnas de tipo 'object'
+      st.write(selection.dtypes)
 
       # st.write(selection[self.date_column].dtype.__name__)
       selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')

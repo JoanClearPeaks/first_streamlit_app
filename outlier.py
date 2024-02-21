@@ -37,6 +37,8 @@ class Outlier_Quantiles():
     st.write(type(selection['DATES'][0]))
     # with st.expander('ORIGINAL DATA'):
     #   st.dataframe(selection)
+    selection['DATES'] = selection['DATES'].dt.date
+    st.write(selection.dtypes)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
     st.sidebar.subheader('COLUMN', help="Select the target column.")
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(selection.columns), index=0, label_visibility="collapsed")
@@ -57,6 +59,7 @@ class Outlier_Quantiles():
     self.warning_dic = {}
       
     if self.date_column != 'False':
+      
       # st.write(selection[self.date_column].dtype.__name__)
       selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
       selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')

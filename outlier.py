@@ -21,6 +21,20 @@ class Outlier_Quantiles():
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')
+    st.subheader('Dtypes1')
+    st.write(selection.dtypes)
+    st.write(selection['DATES'][0])
+    st.write(type(selection['DATES'][0]))
+      for col in selection.columns:
+            if selection[col].dtype == 'object':
+                try:
+                    selection[col] = pd.to_datetime(selection[col])
+                except ValueError:
+                    pass
+    st.subheader('Dtypes2')
+    st.write(selection.dtypes)
+    st.write(selection['DATES'][0])
+    st.write(type(selection['DATES'][0]))
     # with st.expander('ORIGINAL DATA'):
     #   st.dataframe(selection)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
@@ -43,18 +57,6 @@ class Outlier_Quantiles():
     self.warning_dic = {}
       
     if self.date_column != 'False':
-      st.subheader('TYPE1')
-      st.write(selection[self.date_column].dtype)
-      st.subheader('TYPE2')
-      # Imprimir los tipos de datos específicos de las columnas de tipo 'object'
-      st.write(selection.select_dtypes(include=['object']).applymap(type))
-      st.subheader('TYPE3')
-      # Imprimir los tipos de datos específicos de las columnas de tipo 'object'
-      st.write(selection.select_dtypes(include=['object']))
-      st.subheader('TYPE4')
-      # Imprimir los tipos de datos específicos de las columnas de tipo 'object'
-      st.write(selection.dtypes)
-
       # st.write(selection[self.date_column].dtype.__name__)
       selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
       selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')

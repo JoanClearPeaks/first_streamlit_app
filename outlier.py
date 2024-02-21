@@ -37,8 +37,8 @@ class Outlier_Quantiles():
     st.write(type(selection['DATES'][0]))
     # with st.expander('ORIGINAL DATA'):
     #   st.dataframe(selection)
-    selection['DATES'] = selection['DATES'].dt.date
-    st.write(selection.dtypes)
+    # selection['DATES'] = selection['DATES'].dt.date
+    # st.write(selection.dtypes)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
     st.sidebar.subheader('COLUMN', help="Select the target column.")
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(selection.columns), index=0, label_visibility="collapsed")
@@ -67,9 +67,10 @@ class Outlier_Quantiles():
       with st.expander('DATA CHANGE'):
         st.dataframe(selection[self.date_column])
         
-      selection[self.date_column] = pd.to_datetime(selection[self.date_column]).dt.date
+      # selection[self.date_column] = pd.to_datetime(selection[self.date_column]).dt.date
       self.start_date1 = selection[self.date_column].min()
       self.end_date1 = selection[self.date_column].max()
+      st.write(self.start_date1,self.end_date1)
       date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D')] 
       date_intersection = list(set(date_range).intersection(list(selection[self.date_column])))
       

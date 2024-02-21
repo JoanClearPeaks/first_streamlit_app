@@ -57,7 +57,7 @@ class Outlier_Quantiles():
         st.write(selection[self.date_column].dtype)
         return 
         
-    selection[self.date_column] = selection[self.date_column].dt.date
+    
     #------------------------------ PARAMETERS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     st.sidebar.divider()
     st.sidebar.subheader('PARAMETERS')
@@ -70,6 +70,7 @@ class Outlier_Quantiles():
       selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
       selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')
       selection[self.date_column] = selection[self.date_column].replace('2019-09-24', '2019-09-23')
+      selection[self.date_column] = selection[self.date_column].dt.date
       with st.expander('DATA CHANGE'):
         st.dataframe(selection[self.date_column])
         

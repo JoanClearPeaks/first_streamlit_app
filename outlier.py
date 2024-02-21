@@ -47,7 +47,7 @@ class Outlier_Quantiles():
         st.sidebar.info('Please select a valid target column')
         return
     st.sidebar.subheader('DATE COLUMN', help= "Select the date column")        
-    date_columns = selection.select_dtypes(include=['date']).columns.tolist()
+    date_columns = selection.select_dtypes(include=['datetime']).columns.tolist()
     st.write('Date columns',date_columns)
     self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(date_columns), index=0, label_visibility="collapsed")
 

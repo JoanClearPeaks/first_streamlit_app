@@ -47,7 +47,10 @@ class Outlier_Quantiles():
         st.sidebar.info('Please select a valid target column')
         return
     st.sidebar.subheader('DATE COLUMN', help= "Select the date column")        
-    self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(selection.columns), index=0, label_visibility="collapsed")
+    date_columns = selection.select_dtypes(include=['date']).columns.tolist()
+    st.write('Date columns',date_columns)
+    self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(date_columns), index=0, label_visibility="collapsed")
+
     
     if self.date_column == None:
         st.sidebar.info('Please select a valid date column')
@@ -75,8 +78,9 @@ class Outlier_Quantiles():
       date_range2 = [date for date in pd.date_range(start=self.start_date1, end=self.end_date1)]
       date_range3 = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1)]
       st.write(date_range,date_range2,date_range3)
-      date_intersection = list(set(date_range).intersection(list(selection[self.date_column].date())))
-      st.write('Intersection',list(selection[self.date_column].date()))
+      date_change = pd.to_datetime(selection[self.date_column]).dt.date
+      date_intersection = list(set(date_range).intersection(list(date_change)))
+      st.write('Intersection',list(date_change))
       st.write('Set',list(set(date_range)))
       
       st.write("          ")

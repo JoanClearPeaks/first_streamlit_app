@@ -44,9 +44,9 @@ class Outlier_Quantiles():
       
     if self.date_column != 'False':
       st.subheader('TYPE1')
-      st.write(type(self.date_column))
+      st.write(type(selection[self.date_column]))
       st.subheader('TYPE2')
-      st.write(type(self.date_column).__name__)
+      st.write(type(selection[self.date_column]).__name__)
       selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
       selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')
       selection[self.date_column] = selection[self.date_column].replace('2019-09-24', '2019-09-23')

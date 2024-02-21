@@ -28,7 +28,7 @@ class Outlier_Quantiles():
     for col in selection.columns:
           if selection[col].dtype == 'object':
               try:
-                  selection[col] = pd.to_datetime(selection[col]).dt
+                  selection[col] = pd.to_datetime(selection[col])
               except ValueError:
                   pass
     st.subheader('Dtypes2')

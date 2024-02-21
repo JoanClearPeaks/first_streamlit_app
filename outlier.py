@@ -25,12 +25,12 @@ class Outlier_Quantiles():
     st.write(selection.dtypes)
     st.write(selection['DATES'][0])
     st.write(type(selection['DATES'][0]))
-      for col in selection.columns:
-            if selection[col].dtype == 'object':
-                try:
-                    selection[col] = pd.to_datetime(selection[col])
-                except ValueError:
-                    pass
+    for col in selection.columns:
+          if selection[col].dtype == 'object':
+              try:
+                  selection[col] = pd.to_datetime(selection[col])
+              except ValueError:
+                  pass
     st.subheader('Dtypes2')
     st.write(selection.dtypes)
     st.write(selection['DATES'][0])

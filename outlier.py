@@ -474,6 +474,74 @@ Select the grouping criterion for observations, where numerical values will be a
     with container2:
         st.altair_chart(final_chart2, use_container_width=True)
 
+    #-------------------------------------PLOTLY PLOT-------------------------------------------
+    import plotly.graph_objects as go
+    import pandas as pd
+    
+    # Supongamos que df_result es tu DataFrame y que x_column, y_column y outlier_column son tus columnas
+    
+    # Crear el scatter plot
+    fig = go.Figure()
+    
+    # Añadir los puntos al gráfico
+    fig.add_trace(go.Scatter(
+        x=df_result[x_column] if self.date_column != 'False' else df_result.index,
+        y=df_result[y_column],
+        mode='markers',
+        marker=dict(
+            color=df_result[outlier_column].map({True: 'red', False: 'green'}),
+            size=10
+        ),
+        text=df_result[outlier_column],
+        name='Observations'
+    ))
+    
+    # Añadir las líneas de umbrales
+    fig.add_shape(
+        type='line',
+        y0=self.lower_threshold,
+        y1=self.lower_threshold,
+        x0=df_result[x_column].min() if self.date_column != 'False' else df_result.index.min(),
+        x1=df_result[x_column].max() if self.date_column != 'False' else df_result.index.max(),
+        line=dict(color='blue', width=1.5),
+        name='Lower Threshold'
+    )
+    
+    fig.add_shape(
+        type='line',
+        y0=self.upper_threshold,
+        y1=self.upper_threshold,
+        x0=df_result[x_column].min() if self.date_column != 'False' else df_result.index.min(),
+        x1=df_result[x_column].max() if self.date_column != 'False' else df_result.index.max(),
+        line=dict(color='blue', width=1.5),
+        name='Upper Threshold'
+    )
+    
+    # Añadir el sombreado entre umbrales
+    fig.add_trace(go.Scatter(
+        x=pd.concat([df_result[x_column] if self.date_column != 'False' else df_result.index, df_result[x_column] if self.date_column != 'False' else df_result.index[::-1]]),
+        y=pd.concat([pd.Series([self.lower_threshold]*len(df_result)), pd.Series([self.upper_threshold]*len(df_result))[::-1]]),
+        fill='toself',
+        fillcolor='yellow',
+        line=dict(color='yellow'),
+        hoverinfo="skip",
+        showlegend=False
+    ))
+    
+    # Configurar el layout del gráfico
+    fig.update_layout(
+        title=f'Scatter Plot of outliers in {self.target_column} column' if self.date_column == 'False' else f'Scatter Plot of outliers between {self.start_date}/{self.end_date}',
+        xaxis_title=x_column if self.date_column != 'False' else 'Observation',
+        yaxis_title=y_column,
+        autosize=False,
+        width=600,
+        height=400,
+        margin=dict(l=50, r=50, b=100, t=100, pad=4)
+    )
+    
+    # Mostrar el gráfico
+    fig.show()
+
     # st.write('HOLA')
     return
 

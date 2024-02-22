@@ -14,8 +14,9 @@ class Outlier_Quantiles():
     st.divider()
     st.header("Outlier_Quantiles")
     st.markdown('''
-                This module detects countries that are misspelled or do not really correspond to any country in the target column.
-                It returns how many values are not a country, the number of total values checked, and a pie chart.
+                This module performs an outlier detection on a specific table and column. The detection is based on quantile calculations. 
+                The module returns the total number of detected outliers, the total values that have been checked, and a scatter plot. 
+                The scatter plot includes thresholds, clearly distinguishing between values that are considered outliers and those that are not.
                 ''')
     
     

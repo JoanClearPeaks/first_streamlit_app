@@ -211,7 +211,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
 
           if self.rolling_period == 1:
-              self.df_result = df_filtered.groupby(df_filtered.index // self.rolling_period).apply(lambda group: group.tail(1) if len(group) % self.rolling_period == 0 else pd.DataFrame())
+              self.self.df_result = df_filtered.groupby(df_filtered.index // self.rolling_period).apply(lambda group: group.tail(1) if len(group) % self.rolling_period == 0 else pd.DataFrame())
                   
           # Crear grupos basados en el orden de la columna específica
           else:
@@ -480,21 +480,21 @@ Select the grouping criterion for observations, where numerical values will be a
     #-------------------------------------PLOTLY PLOT-------------------------------------------
     
     
-    # Supongamos que df_result es tu DataFrame y que x_column, y_column y outlier_column son tus columnas
+    # Supongamos que self.df_result es tu DataFrame y que x_column, y_column y outlier_column son tus columnas
     
     # Crear el scatter plot
     fig = go.Figure()
     
     # Añadir los puntos al gráfico
     fig.add_trace(go.Scatter(
-        x=df_result[x_column] if self.date_column != 'False' else df_result.index,
-        y=df_result[y_column],
+        x=self.df_result[x_column] if self.date_column != 'False' else self.df_result.index,
+        y=self.df_result[y_column],
         mode='markers',
         marker=dict(
-            color=df_result[outlier_column].map({True: 'red', False: 'green'}),
+            color=self.df_result[outlier_column].map({True: 'red', False: 'green'}),
             size=10
         ),
-        text=df_result[outlier_column],
+        text=self.df_result[outlier_column],
         name='Observations'
     ))
     
@@ -503,8 +503,8 @@ Select the grouping criterion for observations, where numerical values will be a
         type='line',
         y0=self.lower_threshold,
         y1=self.lower_threshold,
-        x0=df_result[x_column].min() if self.date_column != 'False' else df_result.index.min(),
-        x1=df_result[x_column].max() if self.date_column != 'False' else df_result.index.max(),
+        x0=self.df_result[x_column].min() if self.date_column != 'False' else self.df_result.index.min(),
+        x1=self.df_result[x_column].max() if self.date_column != 'False' else self.df_result.index.max(),
         line=dict(color='blue', width=1.5),
         name='Lower Threshold'
     )
@@ -513,16 +513,16 @@ Select the grouping criterion for observations, where numerical values will be a
         type='line',
         y0=self.upper_threshold,
         y1=self.upper_threshold,
-        x0=df_result[x_column].min() if self.date_column != 'False' else df_result.index.min(),
-        x1=df_result[x_column].max() if self.date_column != 'False' else df_result.index.max(),
+        x0=self.df_result[x_column].min() if self.date_column != 'False' else self.df_result.index.min(),
+        x1=self.df_result[x_column].max() if self.date_column != 'False' else self.df_result.index.max(),
         line=dict(color='blue', width=1.5),
         name='Upper Threshold'
     )
     
     # Añadir el sombreado entre umbrales
     fig.add_trace(go.Scatter(
-        x=pd.concat([df_result[x_column] if self.date_column != 'False' else df_result.index, df_result[x_column] if self.date_column != 'False' else df_result.index[::-1]]),
-        y=pd.concat([pd.Series([self.lower_threshold]*len(df_result)), pd.Series([self.upper_threshold]*len(df_result))[::-1]]),
+        x=pd.concat([self.df_result[x_column] if self.date_column != 'False' else self.df_result.index, self.df_result[x_column] if self.date_column != 'False' else self.df_result.index[::-1]]),
+        y=pd.concat([pd.Series([self.lower_threshold]*len(self.df_result)), pd.Series([self.upper_threshold]*len(self.df_result))[::-1]]),
         fill='toself',
         fillcolor='yellow',
         line=dict(color='yellow'),

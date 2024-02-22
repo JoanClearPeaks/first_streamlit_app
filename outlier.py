@@ -154,7 +154,9 @@ Selection Threshold: Thresholds are calculated based on the dataset of values wi
           return
         
     self.sensitivity = st.sidebar.slider('**Sensitivity value**', 0.0, 3.0, step = 0.1, value=1.5, 
-                                        help='''Multiplier that adjusts the sensitivity of outlier detection. Increasing the value reduces sensitivity, while decreasing it increases sensitivity.''') #info necessary
+                                        help='''Multiplier that adjusts the sensitivity of outlier detection. 
+                                        Increasing the value reduces sensitivity, while decreasing it increases sensitivity.
+                                        It is recommended not to alter the default value of 1.5, as it is considered optimal for outlier detection.''') #info necessary
 
     if self.date_column != 'False':
         st.sidebar.markdown("**Enable grouping**")

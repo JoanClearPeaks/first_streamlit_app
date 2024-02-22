@@ -6,6 +6,8 @@ import scipy
 import copy
 import altair as alt
 import pytz
+import plotly.graph_objects as go
+    
 
 #------------------------------ TITLE & DESCRIPTION ------------------------------------------------------------------------------------------------------------------------------------------------------
 class Outlier_Quantiles():
@@ -475,8 +477,7 @@ Select the grouping criterion for observations, where numerical values will be a
         st.altair_chart(final_chart2, use_container_width=True)
 
     #-------------------------------------PLOTLY PLOT-------------------------------------------
-    import plotly.graph_objects as go
-    import pandas as pd
+    
     
     # Supongamos que df_result es tu DataFrame y que x_column, y_column y outlier_column son tus columnas
     

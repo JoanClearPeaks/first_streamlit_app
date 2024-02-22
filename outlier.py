@@ -146,7 +146,7 @@ class Outlier_Quantiles():
       self.options = st.sidebar.radio(
                       "**Total Threshold or Selection Threshold**",
                       ["Total Threshold", "Selection Threshold"], horizontal=True, 
-                      help = '''Total Threshold: Thresholds are calculated based on the entire dataset of values within the selected numerical column.
+                      help = '''Total Threshold: Thresholds are calculated based on the entire dataset of values within the selected numerical column.\n
 Selection Threshold: Thresholds are calculated based on the dataset of values within the selected numerical column that fall within the specified date range.''')
 
     if self.date_column != 'False':

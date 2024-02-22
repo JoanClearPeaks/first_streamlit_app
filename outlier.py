@@ -34,14 +34,16 @@ class Outlier_Quantiles():
     # selection['DATES'] = selection['DATES'].dt.date
     # st.write(selection.dtypes)
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
-    st.sidebar.subheader('COLUMN', help="Select the target column.")
+    st.sidebar.subheader('COLUMN', help='''Please select the numerical target column.
+                          The selection is limited to integer or float types.''')
     numeric_columns = selection.select_dtypes(include=['float','int']).columns.tolist()      
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(numeric_columns), index=0, label_visibility="collapsed")
     
     if self.target_column == None:
         st.sidebar.info('Please select a valid target column')
         return
-    st.sidebar.subheader('DATE COLUMN', help= "Select the date column")        
+    st.sidebar.subheader('DATE COLUMN', help= "help='''Please select the date column.
+                          The selection is limited to date type.'''")        
     date_columns = selection.select_dtypes(include=['datetime']).columns.tolist()
     self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(date_columns), index=0, label_visibility="collapsed")
 

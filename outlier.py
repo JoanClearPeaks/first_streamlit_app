@@ -21,10 +21,7 @@ class Outlier_Quantiles():
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')
-    st.subheader('Dtypes1')
-    st.write(selection.dtypes)
-    st.write(selection['DATES'][0])
-    st.write(type(selection['DATES'][0]))
+    
     for col in selection.columns:
           if selection[col].dtype == 'object':
               try:
@@ -156,7 +153,8 @@ Selection Threshold: Thresholds are calculated based on the dataset of values wi
           st.sidebar.info('Please insert a rolling period')
           return
         
-    self.sensitivity = st.sidebar.slider('**Sensitivity value**', 0.0, 3.0, step = 0.1, value=1.5) #info necessary
+    self.sensitivity = st.sidebar.slider('**Sensitivity value**', 0.0, 3.0, step = 0.1, value=1.5, 
+                                        help='''Multiplier that adjusts the sensitivity of outlier detection. Increasing the value reduces sensitivity, while decreasing it increases sensitivity.''') #info necessary
 
     if self.date_column != 'False':
         st.sidebar.markdown("**Enable grouping**")

@@ -159,9 +159,9 @@ Selection Threshold: Thresholds are calculated based on the dataset of values wi
                                         \nTip: It is recommended not to alter the default value of 1.50, as it is considered optimal for outlier detection.''') #info necessary
 
     if self.date_column != 'False':
-        st.sidebar.markdown("**Enable grouping**")
-        enabled_group = st.sidebar.checkbox('Group per day', help='''If dates are repeated, their values will be averaged, resulting in each unique date having 
+        st.sidebar.markdown("**Enable grouping**", help='''If dates are repeated, their values will be averaged, resulting in each unique date having 
         a single numerical value representing the mean of all its previous values.''')
+        enabled_group = st.sidebar.checkbox('Group per day')
         self.warning_dic["ENABLED_GROUPING_DAY"] = enabled_group
 
         

@@ -156,11 +156,12 @@ Selection Threshold: Thresholds are calculated based on the dataset of values wi
     self.sensitivity = st.sidebar.slider('**Sensitivity value**', 0.0, 3.0, step = 0.1, value=1.5, 
                                         help='''Multiplier that adjusts the sensitivity of outlier detection. 
                                         Increasing the value reduces sensitivity, while decreasing it increases sensitivity.
-                                        \nTip: It is recommended not to alter the default value of 1.5, as it is considered optimal for outlier detection.''') #info necessary
+                                        \nTip: It is recommended not to alter the default value of 1.50, as it is considered optimal for outlier detection.''') #info necessary
 
     if self.date_column != 'False':
         st.sidebar.markdown("**Enable grouping**")
-        enabled_group = st.sidebar.checkbox('Group per day')
+        enabled_group = st.sidebar.checkbox('Group per day', help='''If dates are repeated, their values will be averaged, resulting in each unique date having 
+        a single numerical value representing the mean of all its previous values.''')
         self.warning_dic["ENABLED_GROUPING_DAY"] = enabled_group
 
         

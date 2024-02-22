@@ -150,7 +150,8 @@ class Outlier_Quantiles():
 Selection Threshold: Thresholds are calculated based on the dataset of values within the selected numerical column that fall within the specified date range.''')
 
     if self.date_column != 'False':
-      self.rolling_period =  st.sidebar.number_input('**Number of observations (mean)**', min_value=0, step=1, value = 1) # max_value=self.diff_days
+      self.rolling_period =  st.sidebar.number_input('**Number of observations (mean)**', min_value=0, step=1, value = 1, help = '''
+Select the grouping criterion for observations, where numerical values will be averaged based on the grouping.''') # max_value=self.diff_days
   
       if self.rolling_period == 0:
           st.sidebar.info('Please insert a rolling period')

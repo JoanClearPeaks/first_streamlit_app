@@ -82,7 +82,7 @@ class Outlier_Quantiles():
       
       st.write("          ")
       st.sidebar.markdown("**Date Range**", help = '''Default Start Date: refers to the earliest date found in the selected date column.
-                                                      Default End Date: refers to the latest date found in the selected date column.''')
+                                                      \nDefault End Date: refers to the latest date found in the selected date column.''')
       # self.start_date = st.sidebar.selectbox("Select Start Date", [None] + date_range)
       
       self.start_date = st.sidebar.date_input(

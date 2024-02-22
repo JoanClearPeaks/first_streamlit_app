@@ -55,10 +55,11 @@ class Outlier_Quantiles():
         st.sidebar.info('Please select a valid date column')
         return
 
-    elif 'datetime' not in str(selection[self.date_column].dtype):
-        st.sidebar.info('Please select a DATETIME column')
-        st.write(selection[self.date_column].dtype)
-        return 
+    if self.date_column != 'False':
+        if 'datetime' not in str(selection[self.date_column].dtype):
+            st.sidebar.info('Please select a DATETIME column')
+            st.write(selection[self.date_column].dtype)
+            return 
         
     
     #------------------------------ PARAMETERS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

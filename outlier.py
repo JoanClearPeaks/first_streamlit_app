@@ -57,15 +57,11 @@ class Outlier_Quantiles():
     self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(date_columns), index=0, label_visibility="collapsed")
 
     
-    if self.date_column == None:
-        st.sidebar.info('Please select a valid date column')
-        return
+    # if self.date_column == None:
+    #     st.sidebar.info('Please select a valid date column')
+    #     return
 
-    if self.date_column != 'False':
-        if 'datetime' not in str(selection[self.date_column].dtype):
-            st.sidebar.info('Please select a DATETIME column')
-            st.write(selection[self.date_column].dtype)
-            return 
+        
         
     
     #------------------------------ PARAMETERS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -74,8 +70,11 @@ class Outlier_Quantiles():
     
     self.warning_dic = {}
       
-    if self.date_column != 'False':
-      
+    if self.date_column != None:
+      if 'datetime' not in str(selection[self.date_column].dtype):
+            st.sidebar.info('Please select a DATETIME column')
+            st.write(selection[self.date_column].dtype)
+            return 
       # st.write(selection[self.date_column].dtype.__name__)
       selection[self.date_column] = selection[self.date_column].replace('2019-09-11', '2020-01-11')
       selection[self.date_column] = selection[self.date_column].replace('2019-09-12', '2018-01-11')
@@ -171,7 +170,7 @@ Select the grouping criterion for observations, where numerical values will be a
                                         help='''Multiplier that adjusts the sensitivity of outlier detection. Increasing the value reduces sensitivity, while decreasing it increases sensitivity.
                                         \nTip: It is recommended not to alter the default value of 1.50, as it is considered optimal for outlier detection.''') #info necessary
 
-    if self.date_column != 'False':
+    if self.date_column != None:
         st.sidebar.markdown("**Enable grouping**", help='''If dates are repeated, their values will be averaged, resulting in each unique date having 
         a single numerical value representing the mean of all its previous values.''')
         enabled_group = st.sidebar.checkbox('Group per day')
@@ -183,7 +182,7 @@ Select the grouping criterion for observations, where numerical values will be a
     self.warning_dic["ENABLED"] = enabled
 
     def check_outliers(df):
-      if self.date_column != 'False':
+      if self.date_column != None:
           df_filtered = df[(df[self.date_column] >= self.start_date) & (df[self.date_column] <= self.end_date)]
           df_filtered = df_filtered.sort_values(by=self.date_column)
           df_filtered = df_filtered.reset_index(drop=True)
@@ -211,7 +210,7 @@ Select the grouping criterion for observations, where numerical values will be a
                   df_filtered[str(self.target_column)+'_MEAN'] = df_filtered[self.target_column].rolling(window=self.rolling_period, min_periods=1).mean()
               else:
                   st.warning('Rolling Period must be equal to or lower than the difference between the End Date and the Start Date')
-                  return False
+                  return 
           else:
               df_filtered[str(self.target_column)+'_VALUE'] = df_filtered[self.target_column].rolling(window=self.rolling_period, min_periods=1).mean()
 
@@ -294,7 +293,7 @@ Select the grouping criterion for observations, where numerical values will be a
     st.write("          ")
     st.subheader('Results')
 
-    if self.date_column != 'False':
+    if self.date_column != None:
         self.total_rows_python = self.df_filtered_original.shape[0]
         if self.rolling_period > 1:
             col1, col2 = st.columns(2)
@@ -339,7 +338,7 @@ Select the grouping criterion for observations, where numerical values will be a
           st.success("No outliers have been detected.", icon = '✔')
               
   #---------------------------------------VISUALIZE--------------------------------
-    if self.date_column != 'False':
+    if self.date_column != None:
         a = copy.copy(self.df_result[self.date_column])
         if self.rolling_period == 1:
             a = pd.to_datetime(a, format="%Y-%m-%dT%H:%M:%S.%fZ")
@@ -350,7 +349,7 @@ Select the grouping criterion for observations, where numerical values will be a
         
         # self.df_result[self.date_column] = self.df_result[self.date_column].apply(lambda x: datetime.strptime(x, "%y-%m-%d").strftime("%d/%m/%y"))
     container = st.container()
-    if self.date_column == 'False':
+    if self.date_column == None:
       self.df_result = self.df_result.reset_index()
       self.df_result.rename(columns={'index': 'observation'}, inplace=True)
 
@@ -372,7 +371,7 @@ Select the grouping criterion for observations, where numerical values will be a
     padding = y_range * padding_percentage          
         # Asumiendo que tienes las variables lower_threshold y upper_threshold definidas
     
-    if self.date_column != 'False':
+    if self.date_column != None:
     # Crear el gráfico de Altair con líneas de umbrales y sombreado
         chart = alt.Chart(self.df_result).mark_point().encode(
             x=alt.X(f'{x_column}:N', axis=alt.Axis(labelFontSize=10)),
@@ -430,7 +429,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
     
     
-    if self.date_column == 'False': 
+    if self.date_column == None: 
     # Sombreado entre umbrales
         shaded_area = alt.Chart(self.df_result).mark_area(opacity=0.15, color='yellow').encode(
             x='observation:N',
@@ -467,7 +466,7 @@ Select the grouping criterion for observations, where numerical values will be a
     container2 = st.container()
     final_chart2 = alt.layer(chart, lower_threshold_line, upper_threshold_line, shaded_area).interactive()
     
-    if self.date_column == 'False':
+    if self.date_column == None:
         final_chart2 = final_chart2.configure_view(
             stroke=None
         ).properties(
@@ -489,66 +488,66 @@ Select the grouping criterion for observations, where numerical values will be a
     # Supongamos que self.df_result es tu DataFrame y que x_column, y_column y outlier_column son tus columnas
     
     # Crear el scatter plot
-    fig = go.Figure()
+    # fig = go.Figure()
     
-    # Añadir los puntos al gráfico
-    fig.add_trace(go.Scatter(
-        x=self.df_result[x_column] if self.date_column != 'False' else self.df_result.index,
-        y=self.df_result[y_column],
-        mode='markers',
-        marker=dict(
-            color=self.df_result[outlier_column].map({True: 'red', False: 'green'}),
-            size=10
-        ),
-        text=self.df_result[outlier_column],
-        name='Observations'
-    ))
+    # # Añadir los puntos al gráfico
+    # fig.add_trace(go.Scatter(
+    #     x=self.df_result[x_column] if self.date_column != 'False' else self.df_result.index,
+    #     y=self.df_result[y_column],
+    #     mode='markers',
+    #     marker=dict(
+    #         color=self.df_result[outlier_column].map({True: 'red', False: 'green'}),
+    #         size=10
+    #     ),
+    #     text=self.df_result[outlier_column],
+    #     name='Observations'
+    # ))
     
-    # Añadir las líneas de umbrales
-    fig.add_shape(
-        type='line',
-        y0=self.lower_threshold,
-        y1=self.lower_threshold,
-        x0=self.df_result[x_column].min() if self.date_column != 'False' else self.df_result.index.min(),
-        x1=self.df_result[x_column].max() if self.date_column != 'False' else self.df_result.index.max(),
-        line=dict(color='blue', width=1.5),
-        name='Lower Threshold'
-    )
+    # # Añadir las líneas de umbrales
+    # fig.add_shape(
+    #     type='line',
+    #     y0=self.lower_threshold,
+    #     y1=self.lower_threshold,
+    #     x0=self.df_result[x_column].min() if self.date_column != 'False' else self.df_result.index.min(),
+    #     x1=self.df_result[x_column].max() if self.date_column != 'False' else self.df_result.index.max(),
+    #     line=dict(color='blue', width=1.5),
+    #     name='Lower Threshold'
+    # )
     
-    fig.add_shape(
-        type='line',
-        y0=self.upper_threshold,
-        y1=self.upper_threshold,
-        x0=self.df_result[x_column].min() if self.date_column != 'False' else self.df_result.index.min(),
-        x1=self.df_result[x_column].max() if self.date_column != 'False' else self.df_result.index.max(),
-        line=dict(color='blue', width=1.5),
-        name='Upper Threshold'
-    )
+    # fig.add_shape(
+    #     type='line',
+    #     y0=self.upper_threshold,
+    #     y1=self.upper_threshold,
+    #     x0=self.df_result[x_column].min() if self.date_column != 'False' else self.df_result.index.min(),
+    #     x1=self.df_result[x_column].max() if self.date_column != 'False' else self.df_result.index.max(),
+    #     line=dict(color='blue', width=1.5),
+    #     name='Upper Threshold'
+    # )
     
-    # Añadir el sombreado entre umbrales
-    fig.add_trace(go.Scatter(
-        x=pd.concat([self.df_result[x_column] if self.date_column != 'False' else self.df_result.index, self.df_result[x_column] if self.date_column != 'False' else self.df_result.index[::-1]]),
-        y=pd.concat([pd.Series([self.lower_threshold]*len(self.df_result)), pd.Series([self.upper_threshold]*len(self.df_result))[::-1]]),
-        fill='toself',
-        fillcolor='yellow',
-        line=dict(color='yellow'),
-        hoverinfo="skip",
-        showlegend=False
-    ))
+    # # Añadir el sombreado entre umbrales
+    # fig.add_trace(go.Scatter(
+    #     x=pd.concat([self.df_result[x_column] if self.date_column != 'False' else self.df_result.index, self.df_result[x_column] if self.date_column != 'False' else self.df_result.index[::-1]]),
+    #     y=pd.concat([pd.Series([self.lower_threshold]*len(self.df_result)), pd.Series([self.upper_threshold]*len(self.df_result))[::-1]]),
+    #     fill='toself',
+    #     fillcolor='yellow',
+    #     line=dict(color='yellow'),
+    #     hoverinfo="skip",
+    #     showlegend=False
+    # ))
     
-    # Configurar el layout del gráfico
-    fig.update_layout(
-        title=f'Scatter Plot of outliers in {self.target_column} column' if self.date_column == 'False' else f'Scatter Plot of outliers between {self.start_date}/{self.end_date}',
-        xaxis_title=x_column if self.date_column != 'False' else 'Observation',
-        yaxis_title=y_column,
-        autosize=False,
-        width=600,
-        height=400,
-        margin=dict(l=50, r=50, b=100, t=100, pad=4)
-    )
+    # # Configurar el layout del gráfico
+    # fig.update_layout(
+    #     title=f'Scatter Plot of outliers in {self.target_column} column' if self.date_column == 'False' else f'Scatter Plot of outliers between {self.start_date}/{self.end_date}',
+    #     xaxis_title=x_column if self.date_column != 'False' else 'Observation',
+    #     yaxis_title=y_column,
+    #     autosize=False,
+    #     width=600,
+    #     height=400,
+    #     margin=dict(l=50, r=50, b=100, t=100, pad=4)
+    # )
     
-    # Mostrar el gráfico
-    fig.show()
+    # # Mostrar el gráfico
+    # fig.show()
 
     # st.write('HOLA')
     return

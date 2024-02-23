@@ -217,7 +217,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
 
           if self.rolling_period == 1:
-              self.self.df_result = df_filtered.groupby(df_filtered.index // self.rolling_period).apply(lambda group: group.tail(1) if len(group) % self.rolling_period == 0 else pd.DataFrame())
+              self.df_result = df_filtered.groupby(df_filtered.index // self.rolling_period).apply(lambda group: group.tail(1) if len(group) % self.rolling_period == 0 else pd.DataFrame())
                   
           # Crear grupos basados en el orden de la columna específica
           else:

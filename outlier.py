@@ -24,7 +24,13 @@ class Outlier_Quantiles():
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')
-    
+    first_row = selection.iloc[0,:]
+    with st.expander(f"Show selection first row", expanded=False):
+        st.dataframe(first_row, use_container_width=True)
+        
+    with st.expander(f"Show selecion first row", expanded=False):
+        st.table(first_row)
+        
     for col in selection.columns:
           if selection[col].dtype == 'object':
               try:

@@ -71,6 +71,7 @@ class Outlier_Quantiles():
     self.warning_dic = {}
       
     if self.date_column != None:
+      st.write(str(selection[self.date_column].dtype))
       if 'datetime' not in str(selection[self.date_column].dtype):
             st.sidebar.info('Please select a DATETIME column')
             st.write(selection[self.date_column].dtype)

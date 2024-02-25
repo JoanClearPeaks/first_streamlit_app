@@ -561,8 +561,8 @@ Select the grouping criterion for observations, where numerical values will be a
     })
     
     df2 = pd.DataFrame({
-        'C': np.random.choice([7, 1, 4, 2, 5], 20),
-        'D': np.random.choice([7, 4, 5, 6, 8], 20),
+        'A': np.random.choice([7, 1, 4, 2, 5], 20),
+        'B': np.random.choice([7, 4, 5, 6, 8], 20),
         'E': np.random.choice([5, 6, 7, 8, 9], 20)
     })
     st.dataframe(df1)

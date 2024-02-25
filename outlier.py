@@ -553,7 +553,7 @@ Select the grouping criterion for observations, where numerical values will be a
     # st.write('HOLA')
     # Example DataFrames
     df1 = pd.DataFrame({'A': [1, 2, 4], 'B': [4, 5, 6], 'F': [1, 2, 7]})
-    df2 = pd.DataFrame({'C': [7, 1, 4], 'D': [7, 4, 5], 'E': [5, 5, 5]})  # Assume this is your other DataFrame
+    df2 = pd.DataFrame({'A': [7, 1, 4], 'B': [7, 4, 5], 'F': [5, 5, 5]})  # Assume this is your other DataFrame
     st.dataframe(df1)
     st.dataframe(df2)
 

@@ -557,10 +557,17 @@ Select the grouping criterion for observations, where numerical values will be a
     st.dataframe(df1)
     st.dataframe(df2)
     # Find the index in df1 where df2 contains two equal values in columns 'C' and 'D'
-    index = df1[(df1['A'] == df2['C']) & (df1['B'] == df2['D'])].index
+    indices_coincidentes = []
+    for _, fila in df2.iterrows():
+        filas_coincidentes = df1[(df1['A'] == fila['E']) & (df1['D'] == fila['F'])]
+        if not filas_coincidentes.empty:
+            indices_coincidentes.extend(filas_coincidentes.index)
+
+# Eliminar índices duplicados
+    indices_coincidentes = list(set(indices_coincidentes))
     
     # Print the index
-    st.write("Index in df1:", index)
+    st.write("Índices en df1 donde df2 contiene dos valores iguales en dos columnas:", indices_coincidentes)
     return
 
   def matrix(self):

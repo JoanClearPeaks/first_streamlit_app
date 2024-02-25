@@ -558,14 +558,18 @@ Select the grouping criterion for observations, where numerical values will be a
     st.dataframe(df1)
     st.dataframe(df2)
 
-    mask = df1[['A', 'B']].isin(df2[['A', 'B']]).all(axis=1)
-    indices = df1[mask].index.tolist()
-    st.write(indices)
     
     merged_df = pd.merge(df1, df2, on=['A', 'B'])
     st.dataframe(merged_df)
     indices = merged_df['original_index'].tolist()
     st.write(indices)
+
+    merged_df = pd.merge(df1, df2, on=['A', 'B'], how='inner', indicator=True)
+    st.dataframe(merged_df)
+    indices = merged_df[merged_df['_merge'] == 'both'].index.tolist()
+    st.write(indices)
+
+
     return
 
   def matrix(self):

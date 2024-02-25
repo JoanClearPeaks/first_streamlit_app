@@ -556,7 +556,11 @@ Select the grouping criterion for observations, where numerical values will be a
     df2 = pd.DataFrame({'C': [7, 1, 4], 'D': [7, 4, 5], 'E': [5, 5, 5]})  # Assume this is your other DataFrame
     st.dataframe(df1)
     st.dataframe(df2)
-   
+
+    merged_df = pd.merge(df1, df2, on=['A', 'B'])
+    indices = merged_df.index.tolist()
+    st.dataframe(merged_df)
+    st.write(indices)
     return
 
   def matrix(self):

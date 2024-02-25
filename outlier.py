@@ -552,9 +552,10 @@ Select the grouping criterion for observations, where numerical values will be a
 
     # st.write('HOLA')
     # Example DataFrames
-    df1 = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
-    df2 = pd.DataFrame({'C': [7, 8, 9], 'D': [10, 5, 6]})  # Assume this is your other DataFrame
-    
+    df1 = pd.DataFrame({'A': [1, 2, 4], 'B': [4, 5, 6]})
+    df2 = pd.DataFrame({'C': [7, 4, 4], 'D': [7, 5, 6]})  # Assume this is your other DataFrame
+    st.dataframe(df1)
+    st.dataframe(df2)
     # Find the index in df1 where df2 contains two equal values in columns 'C' and 'D'
     index = df1[(df1['A'] == df2['C']) & (df1['B'] == df2['D'])].index
     

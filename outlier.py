@@ -560,10 +560,10 @@ Select the grouping criterion for observations, where numerical values will be a
 
     mask = df1[['A', 'B']].isin(df2[['A', 'B']]).all(axis=1)
     indices = df1[mask].index.tolist()
-    st.dataframe(merged_df)
     st.write(indices)
     
     merged_df = pd.merge(df1, df2, on=['A', 'B'])
+    st.dataframe(merged_df)
     indices = merged_df['original_index'].tolist()
     st.write(indices)
     return

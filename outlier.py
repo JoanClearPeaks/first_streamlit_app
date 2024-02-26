@@ -563,11 +563,8 @@ Select the grouping criterion for observations, where numerical values will be a
     st.dataframe(merged_df)
     indices = merged_df['original_index'].tolist()
     st.write(indices)
-
-    merged_df = pd.merge(df1, df2, on=['A', 'B'], how='inner', indicator=True)
-    st.dataframe(merged_df)
-    indices = merged_df[merged_df['_merge'] == 'both'].index.tolist()
-    st.write(indices)
+    df1.drop('original_index', axis=1, inplace=True)
+    st.dataframe(df1)
 
 
     return

@@ -210,7 +210,7 @@ Select the grouping criterion for observations, where numerical values will be a
           
                   
           if self.warning_dic["ENABLED_GROUPING_DAY"]:
-              df_filtered = df_filtered.groupby(self.date_column)[self.target_column].mean().reset_index()
+              df_filtered = df_filtered.groupby(self.date_column)[self.target_column].mean()
               with st.expander('Df filtered per day'):
                   st.dataframe(df_filtered)
 

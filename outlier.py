@@ -582,9 +582,11 @@ Select the grouping criterion for observations, where numerical values will be a
             self.df_outliers.rename(columns={f'{self.target_column}_VALUE': self.target_column}, inplace=True)
             merged_df = pd.merge(copia_original, self.df_outliers, on=[f'{self.target_column}', self.date_column])
     st.dataframe(merged_df)
-    indices = merged_df['original_index'].tolist()
+    df_uniques = merged_df.drop_duplicates(subset='original_index', keep='first')
+
+    indices = df_uniques['original_index'].tolist()
     st.write(indices)
-    # copia_original.drop('original_index', axis=1, inplace=True)
+    copia_original.drop('original_index', axis=1, inplace=True)
 
     filas_seleccionadas = copia_original.loc[indices]
 

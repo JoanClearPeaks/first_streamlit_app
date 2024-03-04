@@ -83,7 +83,7 @@ class Outlier_Quantiles():
       selection.iloc[1] = ['2020-06-20', 303, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
       selection.iloc[30] = ['2020-06-20', 303, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
       selection.iloc[35] = ['2020-06-20', 298, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
-      selection.iloc[35] = ['2020-06-21', 310, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
+      selection.iloc[40] = ['2020-06-21', 310, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
 
       selection[self.date_column] = selection[self.date_column].dt.date
       with st.expander('DATA CHANGE'):
@@ -189,6 +189,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
     def check_outliers(df):
       if self.date_column != None:
+          df['original_index'] = df.index
           df_filtered = df[(df[self.date_column] >= self.start_date) & (df[self.date_column] <= self.end_date)]
           df_filtered = df_filtered.sort_values(by=self.date_column)
           df_filtered = df_filtered.reset_index(drop=True)

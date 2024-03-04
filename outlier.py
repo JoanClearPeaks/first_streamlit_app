@@ -601,7 +601,27 @@ Select the grouping criterion for observations, where numerical values will be a
             st.dataframe(filas_seleccionadas)
 
         else:
-            pass
+
+            # Supongamos que 'df' es tu DataFrame
+            self.df_outliers[self.date_column] = self.df_outliers[self.date_column].str.split(' - ')
+            
+            # Inicializa una nueva columna para las listas de fechas
+            self.df_outliers['date_list'] = None
+            
+            for i, row in self.df_outliers.iterrows():
+                # Convierte las cadenas de texto en objetos de fecha
+                start_date = datetime.strptime(row[self.date_column][0], '%Y-%m-%d')
+                end_date = datetime.strptime(row[self.date_column][1], '%Y-%m-%d')
+            
+                # Genera una lista de fechas para cada intervalo
+                date_list = [(start_date + timedelta(days=x)).strftime('%Y-%m-%d') for x in range((end_date-start_date).days + 1)]
+            
+                # Asigna la lista de fechas a la nueva columna
+                self.df_outliers.at[i, 'date_list'] = date_list
+            
+            # Muestra el DataFrame actualizado
+            st.dataframe(self.df_outliers)
+
             # for date_intervals in self.df_outliers[self.date_column]:
             #     date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D') if date.date() in selection[self.date_column].tolist()]
             

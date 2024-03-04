@@ -573,14 +573,14 @@ Select the grouping criterion for observations, where numerical values will be a
     with st.expander('OUTLIERS'):
         st.dataframe(self.df_outliers, use_container_width=True)
 
-     copia_original = copy.copy(selection)
-     copia_original['original_index'] = copia_original.index
-     merged_df = pd.merge(copia_original, df2, on=[self.target_column, self.date_column])
-     st.dataframe(merged_df)
-     indices = merged_df['original_index'].tolist()
-     st.write(indices)
-     copia_original.drop('original_index', axis=1, inplace=True)
-     st.dataframe(copia_original)
+    copia_original = copy.copy(selection)
+    copia_original['original_index'] = copia_original.index
+    merged_df = pd.merge(copia_original, df2, on=[self.target_column, self.date_column])
+    st.dataframe(merged_df)
+    indices = merged_df['original_index'].tolist()
+    st.write(indices)
+    copia_original.drop('original_index', axis=1, inplace=True)
+    st.dataframe(copia_original)
       
       
 

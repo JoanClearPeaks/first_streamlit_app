@@ -583,7 +583,7 @@ Select the grouping criterion for observations, where numerical values will be a
     indices = merged_df['original_index'].tolist()
     st.write(indices)
     copia_original.drop('original_index', axis=1, inplace=True)
-    st.dataframe(copia_original)
+    st.dataframe(merged_df)
       
       
 

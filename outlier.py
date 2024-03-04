@@ -575,7 +575,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
     copia_original = copy.copy(selection)
     copia_original['original_index'] = copia_original.index
-    merged_df = pd.merge(copia_original, df2, on=[self.target_column, self.date_column])
+    merged_df = pd.merge(copia_original, self.df_outliers, on=[f'{self.target_column}_VALUE', self.date_column])
     st.dataframe(merged_df)
     indices = merged_df['original_index'].tolist()
     st.write(indices)

@@ -162,7 +162,7 @@ class Outlier_Quantiles():
 Selection Threshold: Thresholds are calculated based on the dataset of values within the selected numerical column that fall within the specified date range.''')
 
     if self.date_column != 'False':
-      self.rolling_period =  st.sidebar.number_input('**Number of observations (mean)**', min_value=0, step=1, value = 1, help = '''
+      self.rolling_period =  st.sidebar.number_input('**Number of observations (mean)**', min_value=1, step=1, value = 1, help = '''
 Select the grouping criterion for observations, where numerical values will be averaged based on the grouping.''') # max_value=self.diff_days
   
       if self.rolling_period == 0:
@@ -581,17 +581,18 @@ Select the grouping criterion for observations, where numerical values will be a
         if self.rolling_period == 1: 
             self.df_outliers.rename(columns={f'{self.target_column}_VALUE': self.target_column}, inplace=True)
             merged_df = pd.merge(copia_original, self.df_outliers, on=[f'{self.target_column}', self.date_column])
-    st.dataframe(merged_df)
-    df_uniques = merged_df.drop_duplicates(subset='original_index', keep='first')
-
-    indices = df_uniques['original_index'].tolist()
-    st.write(indices)
-    copia_original.drop('original_index', axis=1, inplace=True)
-
-    filas_seleccionadas = copia_original.loc[indices]
-
-    # Muestra las filas seleccionadas
-    st.dataframe(filas_seleccionadas)
+            st.dataframe(merged_df)
+            df_uniques = merged_df.drop_duplicates(subset='original_index', keep='first')
+        
+            indices = df_uniques['original_index'].tolist()
+            st.write(indices)
+            copia_original.drop('original_index', axis=1, inplace=True)
+        
+            filas_seleccionadas = copia_original.loc[indices]
+        
+            # Muestra las filas seleccionadas
+            st.dataframe(filas_seleccionadas)
+        
     
       
       

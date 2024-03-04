@@ -566,6 +566,9 @@ Select the grouping criterion for observations, where numerical values will be a
     df1.drop('original_index', axis=1, inplace=True)
     st.dataframe(df1)
 
+    st.header('RESULT')
+    st.dataframe(self.df_result)
+
 
     return
 

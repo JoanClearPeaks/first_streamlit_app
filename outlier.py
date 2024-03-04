@@ -577,7 +577,7 @@ Select the grouping criterion for observations, where numerical values will be a
     copia_original['original_index'] = copia_original.index
     if self.date_column != 'None':
         if self.rolling_period == 1: 
-            self.df_outliers.rename(columns={f'{self_target_column}_VALUE': self.target_column}, inplace=True)
+            self.df_outliers.rename(columns={f'{self.target_column}_VALUE': self.target_column}, inplace=True)
             merged_df = pd.merge(copia_original, self.df_outliers, on=[f'{self.target_column}_VALUE', self.date_column])
     st.dataframe(merged_df)
     indices = merged_df['original_index'].tolist()

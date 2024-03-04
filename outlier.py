@@ -566,10 +566,13 @@ Select the grouping criterion for observations, where numerical values will be a
     df1.drop('original_index', axis=1, inplace=True)
     st.dataframe(df1)
 
-    st.header('RESULT')
+    st.expander('ORIGINAL')
+    st.dataframe(selection)
+    st.expander('RESULT')
     st.dataframe(self.df_result)
-    st.header('OUTLIERS')
+    st.expander('OUTLIERS')
     st.dataframe(self.df_outliers, use_container_width=True)
+      
 
 
     return

@@ -580,7 +580,11 @@ Select the grouping criterion for observations, where numerical values will be a
     copia_original = copy.copy(selection)
     copia_original['original_index'] = copia_original.index
     if self.date_column != 'None':
-        if self.rolling_period == 1: 
+        if self.warning_dic["ENABLED_GROUPING_DAY"]:
+            if self.rolling_period == 1: 
+                pass
+                
+        elif self.rolling_period == 1: 
             self.df_outliers.rename(columns={f'{self.target_column}_VALUE': self.target_column}, inplace=True)
             merged_df = pd.merge(copia_original, self.df_outliers, on=[f'{self.target_column}', self.date_column])
             st.dataframe(merged_df)
@@ -591,9 +595,11 @@ Select the grouping criterion for observations, where numerical values will be a
             copia_original.drop('original_index', axis=1, inplace=True)
         
             filas_seleccionadas = copia_original.loc[indices]
-        
+            
             # Muestra las filas seleccionadas
             st.dataframe(filas_seleccionadas)
+            
+            
         
     
       

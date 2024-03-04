@@ -568,6 +568,8 @@ Select the grouping criterion for observations, where numerical values will be a
 
     st.header('RESULT')
     st.dataframe(self.df_result)
+    st.header('OUTLIERS')
+    st.dataframe(self.df_outliers, use_container_width=True)
 
 
     return

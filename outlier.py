@@ -195,6 +195,8 @@ Select the grouping criterion for observations, where numerical values will be a
           df['original_index'] = df.index
           df_filtered = df[(df[self.date_column] >= self.start_date) & (df[self.date_column] <= self.end_date)]
           df_filtered = df_filtered.sort_values(by=self.date_column)
+          st.header('Sort by date'):
+              st.dataframe(df_filtered)
           df_filtered = df_filtered.reset_index(drop=True)
           st.dataframe(df_filtered)
           self.df_filtered_original = copy.copy(df_filtered)

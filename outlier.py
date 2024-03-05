@@ -607,29 +607,51 @@ Select the grouping criterion for observations, where numerical values will be a
             st.dataframe(filas_seleccionadas)
 
         else:
-
-            # Supongamos que 'df' es tu DataFrame
-            self.df_outliers[self.date_column] = self.df_outliers[self.date_column].str.split(' - ')
+            # Supongamos que 'df_original' es tu DataFrame original y 'df' es tu DataFrame agrupado
+            self.df_result[self.date_column] = self.df_result[self.date_column].str.split(' - ')
             
-            # Inicializa una nueva columna para las listas de fechas
-            self.df_outliers['date_list'] = None
+            # Inicializa una nueva columna para las listas de índices originales
+            self.df_result['original_indices'] = None
             
-            for i, row in self.df_outliers.iterrows():
+            for i, row in self.df_result.iterrows():
                 # Convierte las cadenas de texto en objetos de fecha
-                start_date = datetime.strptime(row[self.date_column][0], '%Y-%m-%d')
-                end_date = datetime.strptime(row[self.date_column][1], '%Y-%m-%d')
+                start_date = pd.to_datetime(row[self.date_column][0])
+                end_date = pd.to_datetime(row[self.date_column][1])
             
-                # Genera una lista de fechas para cada intervalo
-                date_list = [(start_date + timedelta(days=x)).strftime('%Y-%m-%d') for x in range((end_date-start_date).days + 1)]
+                # Encuentra las filas del DataFrame original que caen dentro del intervalo de fechas
+                mask = (selection[self.date_column] >= start_date) & (selection[self.date_column] <= end_date)
+                original_indices = selection[mask].index.tolist()
             
-                # Asigna la lista de fechas a la nueva columna
-                self.df_outliers.at[i, 'date_list'] = date_list
+                # Asigna la lista de índices originales a la nueva columna
+                self.df_result.at[i, 'original_indices'] = original_indices
             
-            # Muestra el DataFrame actualizado
-            st.dataframe(self.df_outliers)
+            # Filtra las filas que son outliers
+            outliers = self.df_result[self.df_result['OUTLIER'] == 'OUTLIER']
+            
+            # Muestra los outliers y sus índices originales
+            st.dataframe(outliers)
+            # # Supongamos que 'df' es tu DataFrame
+            # self.df_outliers[self.date_column] = self.df_outliers[self.date_column].str.split(' - ')
+            
+            # # Inicializa una nueva columna para las listas de fechas
+            # self.df_outliers['date_list'] = None
+            
+            # for i, row in self.df_outliers.iterrows():
+            #     # Convierte las cadenas de texto en objetos de fecha
+            #     start_date = datetime.strptime(row[self.date_column][0], '%Y-%m-%d')
+            #     end_date = datetime.strptime(row[self.date_column][1], '%Y-%m-%d')
+            
+            #     # Genera una lista de fechas para cada intervalo
+            #     date_list = [(start_date + timedelta(days=x)).strftime('%Y-%m-%d') for x in range((end_date-start_date).days + 1)]
+            
+            #     # Asigna la lista de fechas a la nueva columna
+            #     self.df_outliers.at[i, 'date_list'] = date_list
+            
+            # # Muestra el DataFrame actualizado
+            # st.dataframe(self.df_outliers)
 
-            # for date_intervals in self.df_outliers[self.date_column]:
-            #     date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D') if date.date() in selection[self.date_column].tolist()]
+            # # for date_intervals in self.df_outliers[self.date_column]:
+            # #     date_range = [date.date() for date in pd.date_range(start=self.start_date1, end=self.end_date1, freq='D') if date.date() in selection[self.date_column].tolist()]
             
         
             

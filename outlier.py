@@ -608,6 +608,8 @@ Select the grouping criterion for observations, where numerical values will be a
 
         else:
             # Supongamos que 'df_original' es tu DataFrame original y 'df' es tu DataFrame agrupado
+            selection[self.date_column] = pd.to_datetime(selection[self.date_column])
+
             self.df_result[self.date_column] = self.df_result[self.date_column].str.split(' - ')
             
             # Inicializa una nueva columna para las listas de índices originales

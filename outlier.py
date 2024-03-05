@@ -619,7 +619,7 @@ Select the grouping criterion for observations, where numerical values will be a
                 end_date = pd.to_datetime(row[self.date_column][1])
             
                 # Encuentra las filas del DataFrame original que caen dentro del intervalo de fechas
-                mask = (selection[self.date_column] >= start_date) & (selection[self.date_column] <= end_date)
+                mask = (selection[self.date_column].dt.date >= start_date.date()) & (selection[self.date_column].dt.date <= end_date.date())
                 original_indices = selection[mask].index.tolist()
             
                 # Asigna la lista de índices originales a la nueva columna

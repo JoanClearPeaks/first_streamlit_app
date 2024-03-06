@@ -612,7 +612,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
         else:
             # Supongamos que 'df_original' es tu DataFrame original y 'df' es tu DataFrame agrupado
-            selection[self.date_column] = pd.to_datetime(selection[self.date_column])
+            dates = pd.to_datetime(selection[self.date_column])
 
             self.df_result[self.date_column] = self.df_result[self.date_column].str.split(' - ')
             
@@ -627,7 +627,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
                 # st.write(selection[self.date_column].dt.date,start_date.date())
                 # Encuentra las filas del DataFrame original que caen dentro del intervalo de fechas
-                mask = (selection[self.date_column].dt.date >= start_date.date()) & (selection[self.date_column].dt.date <= end_date.date())
+                mask = (dates.dt.date >= start_date.date()) & (dates.dt.date <= end_date.date())
                 # st.write(selection[self.date_column].dt.date >= start_date.date())
                 # st.write(selection[self.date_column].dt.date <= end_date.date())
                 # st.write('Mask:', mask)

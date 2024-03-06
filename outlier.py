@@ -336,7 +336,21 @@ Select the grouping criterion for observations, where numerical values will be a
         col1, col2 = st.columns(2)
         col1.metric("OUTLIERS DETECTED", self.outliers_count)
         col2.metric(f"TOTAL OBSERVATIONS", self.df_result.shape[0], help = 'Total observations/rows checked in your dataset')
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     
      
   #---------------------------------------WARNINGS--------------------------------
@@ -358,6 +372,7 @@ Select the grouping criterion for observations, where numerical values will be a
               copy_selection.drop('original_index', axis=1, inplace=True)
               self.df_outliers = copy_selection.loc[indices]
               for row in self.df_outliers:
+                  st.write(row)
                   st.write(row[self.date_column])
                   st.write(self.target_column)
                   st.write(row[self.target_column])
@@ -370,7 +385,22 @@ Select the grouping criterion for observations, where numerical values will be a
               st.dataframe(self.df_outliers, use_container_width=True)
       else:
           st.success("No outliers have been detected.", icon = '✔')
-              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
   #---------------------------------------VISUALIZE--------------------------------
     if self.date_column != None:
         a = copy.copy(self.df_result[self.date_column])

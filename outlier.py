@@ -347,7 +347,18 @@ Select the grouping criterion for observations, where numerical values will be a
               st.warning(f"There is {str(self.outliers_count)} outlier in {now} execution.", icon = '⚠')
           else:
               st.warning(f"There are {str(self.outliers_count)} outliers in {now} execution.", icon = '⚠')
+          if self.rolling_period == 1:
+              copy_selection = copy.copy(selection)
+              copy_selection['original_index'] = copy_selection.index
 
+              self.df_outliers.rename(columns={f'{self.target_column}_VALUE': self.target_column}, inplace=True)
+              merged_df = pd.merge(copy_selection, self.df_outliers, on=[f'{self.target_column}', self.date_column])
+              df_uniques = merged_df.drop_duplicates(subset='original_index', keep='first')
+              indices = df_uniques['original_index'].tolist()
+              copy_selection.drop('original_index', axis=1, inplace=True)
+              self.df_outliers = copy_selection.loc[indices]
+            # Muestra las filas seleccionadas
+            # st.dataframe(filas_seleccionadas)
           with st.expander(f"See outliers in {self.target_column} column", expanded=False):
               st.dataframe(self.df_outliers, use_container_width=True)
       else:

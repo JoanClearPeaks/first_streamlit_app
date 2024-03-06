@@ -269,6 +269,8 @@ Select the grouping criterion for observations, where numerical values will be a
           self.lower_threshold = q1_full - self.sensitivity * iqr
           self.upper_threshold = q3_full + self.sensitivity * iqr
 
+          self.lower_threshold = round(self.lower_threshold,4)
+          self.upper_threshold = round(self.upper_threshold,4)
           
           # Identificar outliers
           self.df_outliers = self.df_result[(self.df_result.iloc[:,-1] < self.lower_threshold) | (self.df_result.iloc[:,-1] > self.upper_threshold)]

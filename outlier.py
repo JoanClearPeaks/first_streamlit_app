@@ -624,7 +624,7 @@ Select the grouping criterion for observations, where numerical values will be a
                 start_date = pd.to_datetime(row[self.date_column][0])
                 end_date = pd.to_datetime(row[self.date_column][1])
 
-                st.write(selection[self.date_column].dt.date,start_date.date())
+                # st.write(selection[self.date_column].dt.date,start_date.date())
                 # Encuentra las filas del DataFrame original que caen dentro del intervalo de fechas
                 mask = (selection[self.date_column].dt.date >= start_date.date()) & (selection[self.date_column].dt.date <= end_date.date())
                 original_indices = selection[mask].index.tolist()

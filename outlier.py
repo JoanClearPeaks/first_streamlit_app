@@ -372,6 +372,7 @@ Select the grouping criterion for observations, where numerical values will be a
               copy_selection.drop('original_index', axis=1, inplace=True)
               self.df_outliers = copy_selection.loc[indices]
               for row in self.df_outliers:
+                  st.write(self.df_outliers)
                   st.write(row)
                   st.write(row[self.date_column])
                   st.write(self.target_column)

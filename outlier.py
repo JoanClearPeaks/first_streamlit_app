@@ -371,9 +371,9 @@ Select the grouping criterion for observations, where numerical values will be a
               indices = df_uniques['original_index'].tolist()
               copy_selection.drop('original_index', axis=1, inplace=True)
               self.df_outliers = copy_selection.loc[indices]
-              for row in self.df_outliers:
-                  st.write(self.df_outliers)
+              for index, row in self.df_outliers.iterrows():                  
                   st.write(row)
+                  st.write(index)
                   st.write(row[self.date_column])
                   st.write(self.target_column)
                   st.write(row[self.target_column])

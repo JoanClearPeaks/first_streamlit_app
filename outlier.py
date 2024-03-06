@@ -219,7 +219,11 @@ Select the grouping criterion for observations, where numerical values will be a
           # Calcular la media para grupos de tres valores
           if self.rolling_period != 1:
               if self.rolling_period <= df_filtered.shape[0]:
+                  df_filtered.rename(columns={'index': 'original_index'}, inplace=True)
+                  df_filtered.reset_index(drop=True, inplace=True)
+                
                   df_filtered[str(self.target_column)+'_MEAN'] = df_filtered[self.target_column].rolling(window=self.rolling_period, min_periods=1).mean()
+                  # df_filtered[str(self.target_column)+'_MEAN'] = df_filtered[self.target_column].rolling(window=self.rolling_period, min_periods=1).mean()
               else:
                   st.warning('Rolling Period must be equal to or lower than the difference between the End Date and the Start Date')
                   return 

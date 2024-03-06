@@ -620,7 +620,7 @@ Select the grouping criterion for observations, where numerical values will be a
             self.df_result['original_indices'] = None
             
             for i, row in self.df_result.iterrows():
-                st.header('Index: 1')
+                # st.header('Index: 1')
                 # Convierte las cadenas de texto en objetos de fecha
                 start_date = pd.to_datetime(row[self.date_column][0])
                 end_date = pd.to_datetime(row[self.date_column][1])
@@ -630,13 +630,15 @@ Select the grouping criterion for observations, where numerical values will be a
                 mask = (selection[self.date_column].dt.date >= start_date.date()) & (selection[self.date_column].dt.date <= end_date.date())
                 # st.write(selection[self.date_column].dt.date >= start_date.date())
                 # st.write(selection[self.date_column].dt.date <= end_date.date())
-                st.write('Mask:', mask)
+                # st.write('Mask:', mask)
                 original_indices = selection[mask].index.tolist()
-                st.write(f'{start_date}-{end_date}')
-                st.write('Original Indeces:',original_indices)
+                # st.write(f'{start_date}-{end_date}')
+                # st.write('Original Indeces:',original_indices)
             
                 # Asigna la lista de índices originales a la nueva columna
                 self.df_result.at[i, 'original_indices'] = original_indices
+
+            st.dataframe(self.df_result)
             
             # Filtra las filas que son outliers
             outliers = self.df_result[self.df_result['OUTLIER'] == 'OUTLIER']

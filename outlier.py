@@ -361,7 +361,7 @@ Select the grouping criterion for observations, where numerical values will be a
                   st.write(row[self.date_column])
                   st.write(self.target_column)
                   st.write(row[self.target_column])
-                  st.write(self.sensitivity)
+                  st.write(self.sensitivity) 
                   st.write(f'{self.upper_threshold}-{self.lower_threshold}')
                   st.write(f'In date {row[self.date_column]} the target colmn value {self.target_column} is {row[self.target_column]} when the threshold with sensitivity of {self.sensitivity} was ({self.upper_threshold}-{self.lower_threshold})')
             # Muestra las filas seleccionadas

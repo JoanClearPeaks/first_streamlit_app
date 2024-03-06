@@ -641,7 +641,7 @@ Select the grouping criterion for observations, where numerical values will be a
             st.dataframe(self.df_result)
             
             # Filtra las filas que son outliers
-            outliers = self.df_result[self.df_result['OUTLIER'] == 'OUTLIER']
+            outliers = self.df_result[self.df_result['OUTLIER'] == True]
             
             # Muestra los outliers y sus índices originales
             st.dataframe(outliers)

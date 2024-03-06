@@ -358,7 +358,7 @@ Select the grouping criterion for observations, where numerical values will be a
               copy_selection.drop('original_index', axis=1, inplace=True)
               self.df_outliers = copy_selection.loc[indices]
               for row in self.df_outliers:
-                  st.write(f'In date {row[self.date_column} the target colmn value {self.target_column} is {self.target_column} when the threshold with sensitivity of {self.sensitivity} was ({self.upper_threshold}-{lower_threshold}))
+                  st.write(f'In date {row[self.date_column]} with {row.index()} index, the target colmn value {self.target_column} is {self.target_column} when the threshold with sensitivity of {self.sensitivity} was ({self.upper_threshold}-{lower_threshold})')
             # Muestra las filas seleccionadas
             # st.dataframe(filas_seleccionadas)
           with st.expander(f"See outliers in {self.target_column} column", expanded=False):

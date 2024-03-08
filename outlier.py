@@ -374,6 +374,9 @@ Select the grouping criterion for observations, where numerical values will be a
                   indices = df_uniques['original_index'].tolist()
                   copy_selection.drop('original_index', axis=1, inplace=True)
                   self.df_outliers = copy_selection.loc[indices]
+
+                  for index, row in self.df_outliers.iterrows(): 
+                      st.write(f"Row {index}, dated {row[self.date_column]}, with a value of {row[self.target_column]} in the target column {self.target_column}. The sensitivity was ({self.sensitivity}) and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
               
             # Muestra las filas seleccionadas
             # st.dataframe(filas_seleccionadas)
@@ -381,8 +384,7 @@ Select the grouping criterion for observations, where numerical values will be a
           
           with st.expander(f"See outliers in {self.target_column} column", expanded=False):
               st.dataframe(self.df_outliers, use_container_width=True)
-          for index, row in self.df_outliers.iterrows(): 
-              st.write(f"Row {index}, dated {row[self.date_column]}, with a value of {row[self.target_column]} in the target column {self.target_column}. The sensitivity was ({self.sensitivity}) and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
+          
       else:
           st.success("No outliers have been detected.", icon = '✔')
 

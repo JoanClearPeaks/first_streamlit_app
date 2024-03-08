@@ -379,9 +379,8 @@ Select the grouping criterion for observations, where numerical values will be a
             # st.dataframe(filas_seleccionadas)
           with st.expander(f"See outliers in {self.target_column} column", expanded=False):
               st.dataframe(self.df_outliers, use_container_width=True)
-         
           for index, row in self.df_outliers.iterrows():                  
-              st.write(f'Row with index {row.index()} with date {row[self.date_column]} when the target colmn value {self.target_column} is {row[self.target_column]} when the threshold with sensitivity of {self.sensitivity} was ({self.lower_threshold}-{self.upper_threshold})')
+              st.write(f'Row with index {self.df_outliers.index[index]} with date {row[self.date_column]} when the target colmn value {self.target_column} is {row[self.target_column]} when the threshold with sensitivity of {self.sensitivity} was ({self.lower_threshold}-{self.upper_threshold})')
       else:
           st.success("No outliers have been detected.", icon = '✔')
 

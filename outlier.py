@@ -640,7 +640,7 @@ Select the grouping criterion for observations, where numerical values will be a
 
     copia_original = copy.copy(selection)
     copia_original['original_index'] = copia_original.index
-    if self.date_column != 'None':
+    if self.date_column != None:
         if self.warning_dic["ENABLED_GROUPING_DAY"]:
             if self.rolling_period == 1: 
                 pass

@@ -85,8 +85,10 @@ class Outlier_Quantiles():
       selection.iloc[35] = ['2020-06-20', 298, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
       selection.iloc[40] = ['2020-06-21', 270, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
       selection.iloc[100] = ['2020-06-20', 390, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
+      selection.iloc[37] = ['2019-09-14', 390, 300, 1859, 50, 120, 0, 0, 0, 0, 0, 0]
 
       selection.iloc[37] = ['2020-06-21', 300, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
+      
 
       selection[self.date_column] = selection[self.date_column].dt.date
       with st.expander('DATA CHANGE'):

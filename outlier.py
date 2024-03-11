@@ -381,7 +381,7 @@ Select the grouping criterion for observations, where numerical values will be a
                           st.write(f"Observation {index}, dated {row[self.date_column]}, with a value of {row[self.target_column]} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
                   else:
                       for index, row in self.df_outliers.iterrows(): 
-                          st.write(f"Group of observations dated {row[self.date_column]}, with a value of {row[str(self.target_column)+'_VALUE'} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
+                          st.write(f"Group of observations dated {row[self.date_column]}, with a value of {row[str(self.target_column)+'_VALUE']} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
                       
               elif not self.warning_dic["ENABLED_GROUPING_DAY"]:
                   for index, row in self.df_outliers.iterrows(): 

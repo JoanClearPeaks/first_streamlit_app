@@ -85,7 +85,7 @@ class Outlier_Quantiles():
       selection.iloc[35] = ['2020-06-20', 298, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
       selection.iloc[40] = ['2020-06-21', 270, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
       selection.iloc[100] = ['2020-06-20', 390, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
-      selection.iloc[150] = ['2019-09-14', 390, 300, 1859, 50, 120, 0, 0, 0, 0, 0, 0]
+      selection.iloc[150] = ['2019-09-14', 390, 300, 1950, 50, 120, 0, 0, 0, 0, 0, 0]
 
       selection.iloc[37] = ['2020-06-21', 300, 300, 1200, 50, 120, 0, 0, 0, 0, 0, 0]
       
@@ -377,9 +377,13 @@ Select the grouping criterion for observations, where numerical values will be a
                   copy_selection.drop('original_index', axis=1, inplace=True)
                   self.df_outliers = copy_selection.loc[indices]
 
-                  for index, row in self.df_outliers.iterrows(): 
-                      st.write(f"Observation {index}, dated {row[self.date_column]}, with a value of {row[self.target_column]} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
-              
+                  if not self.warning_dic["ENABLED_GROUPING_DAY"]:
+                      for index, row in self.df_outliers.iterrows(): 
+                          st.write(f"Observation {index}, dated {row[self.date_column]}, with a value of {row[self.target_column]} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
+                  else:
+                      for index, row in self.df_outliers.iterrows(): 
+                          st.write(f"Group of observations dated {row[self.date_column]}, with a value of {row[self.target_column]} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
+                      
               elif not self.warning_dic["ENABLED_GROUPING_DAY"]:
                   for index, row in self.df_outliers.iterrows(): 
                       st.write(f"Group with {self.rolling_period} observations between data range ({self.start_date} - {self.end_date}), with a mean value of {row[str(self.target_column)+'_MEAN']} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")

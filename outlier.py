@@ -367,17 +367,16 @@ Select the grouping criterion for observations, where numerical values will be a
               st.warning(f"There are {str(self.outliers_count)} outliers in {now} execution.", icon = '⚠')
           if self.date_column != None:
               if self.rolling_period == 1:
-                  copy_selection = copy.copy(selection)
-                  copy_selection['original_index'] = copy_selection.index
-    
-                  self.df_outliers.rename(columns={f'{self.target_column}_VALUE': self.target_column}, inplace=True)
-                  merged_df = pd.merge(copy_selection, self.df_outliers, on=[f'{self.target_column}', self.date_column])
-                  df_uniques = merged_df.drop_duplicates(subset='original_index', keep='first')
-                  indices = df_uniques['original_index'].tolist()
-                  copy_selection.drop('original_index', axis=1, inplace=True)
-                  self.df_outliers = copy_selection.loc[indices]
-
                   if not self.warning_dic["ENABLED_GROUPING_DAY"]:
+                      copy_selection = copy.copy(selection)
+                      copy_selection['original_index'] = copy_selection.index
+        
+                      self.df_outliers.rename(columns={f'{self.target_column}_VALUE': self.target_column}, inplace=True)
+                      merged_df = pd.merge(copy_selection, self.df_outliers, on=[f'{self.target_column}', self.date_column])
+                      df_uniques = merged_df.drop_duplicates(subset='original_index', keep='first')
+                      indices = df_uniques['original_index'].tolist()
+                      copy_selection.drop('original_index', axis=1, inplace=True)
+                      self.df_outliers = copy_selection.loc[indices]
                       for index, row in self.df_outliers.iterrows(): 
                           st.write(f"Observation {index}, dated {row[self.date_column]}, with a value of {row[self.target_column]} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
                   else:

@@ -629,19 +629,19 @@ Select the grouping criterion for observations, where numerical values will be a
 
     # st.write('HOLA')
     # Example DataFrames
-    df1 = pd.DataFrame({'A': [1, 3, 4,3], 'B': [4, 3, 6,3], 'F': [1, 2, 7,1]})
-    df2 = pd.DataFrame({'A': [7, 1, 4,3], 'B': [7, 4, 5,3], 'F': [5, 5, 5,5]})  # Assume this is your other DataFrame
-    df1['original_index'] = df1.index
-    st.dataframe(df1)
-    st.dataframe(df2)
+    # df1 = pd.DataFrame({'A': [1, 3, 4,3], 'B': [4, 3, 6,3], 'F': [1, 2, 7,1]})
+    # df2 = pd.DataFrame({'A': [7, 1, 4,3], 'B': [7, 4, 5,3], 'F': [5, 5, 5,5]})  # Assume this is your other DataFrame
+    # df1['original_index'] = df1.index
+    # st.dataframe(df1)
+    # st.dataframe(df2)
 
     
-    merged_df = pd.merge(df1, df2, on=['A', 'B'])
-    st.dataframe(merged_df)
-    indices = merged_df['original_index'].tolist()
-    st.write(indices)
-    df1.drop('original_index', axis=1, inplace=True)
-    st.dataframe(df1)
+    # merged_df = pd.merge(df1, df2, on=['A', 'B'])
+    # st.dataframe(merged_df)
+    # indices = merged_df['original_index'].tolist()
+    # st.write(indices)
+    # df1.drop('original_index', axis=1, inplace=True)
+    # st.dataframe(df1)
 
     with st.expander('ORIGINAL'):
         st.dataframe(selection)

@@ -392,7 +392,7 @@ Select the grouping criterion for observations, where numerical values will be a
                       st.write(f"Group with {self.rolling_period} days between data range ({self.start_date} - {self.end_date}), with a mean value of {row[str(self.target_column)+'_MEAN']} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
           else:
                for index, row in self.df_outliers.iterrows(): 
-                    st.write(f"Observation {index}, with a value of {row[str(self.target_column)+'_MEAN']} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
+                    st.write(f"Observation {index}, with a value of {row[str(self.target_column)+'_VALUE']} in the target column {self.target_column}. The sensitivity was {self.sensitivity} and the threshold range ({self.lower_threshold} - {self.upper_threshold}) has been crossed.")
         
             # Muestra las filas seleccionadas
             # st.dataframe(filas_seleccionadas)

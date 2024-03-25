@@ -24,6 +24,8 @@ class Outlier_Quantiles():
     
     # Lee el archivo CSV
     selection = pd.read_csv('predictive_maintenance.csv')
+    selection.index = selection.index + 1
+    
     first_row = selection.iloc[0,:]
     with st.expander(f"Show selection first row", expanded=False):
         st.dataframe(first_row, use_container_width=True)
@@ -307,8 +309,8 @@ Select the grouping criterion for observations, where numerical values will be a
         return
 
     self.outliers_count = self.df_outliers.shape[0]
-    self.df_outliers.index = self.df_outliers.index + 1      
-    self.df_result.index = self.df_result.index + 1 
+    # self.df_outliers.index = self.df_outliers.index + 1      
+    # self.df_result.index = self.df_result.index + 1 
 
     st.write("          ")
     st.subheader('Results')

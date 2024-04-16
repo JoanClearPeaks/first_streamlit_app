@@ -59,21 +59,7 @@ class Outlier_Quantiles():
         
     st.title("Seleccionar Schedule CRON")
 
-    # Input del usuario para ingresar la expresión CRON
-    cron_expression = st.text_input("Ingresa la expresión CRON:")
-
-    # Validar la expresión CRON
-    if cron_expression:
-        is_valid = validate_cron_expression(cron_expression)
-        if is_valid:
-            st.success("La expresión CRON es válida.")
-        else:
-            st.error("La expresión CRON es inválida.")
-    else:
-        st.info('Please select a CRON Expression')
-        return
-
-    # Mostrar un ejemplo de expresión CRON válida
+     # Mostrar un ejemplo de expresión CRON válida
     st.markdown("### Ejemplo de expresión CRON válido:")
     st.write("Ejecutar todos los días a las 9 AM:")
     st.code("0 9 * * *")
@@ -88,6 +74,22 @@ class Outlier_Quantiles():
     st.write("- Día de la semana (0-6 o nombres cortos en inglés: mon, tue, wed, etc.)")
 
     st.write("Para más detalles, consulta la sintaxis CRON en Wikipedia: [CRON Expression](https://en.wikipedia.org/wiki/Cron)")
+
+    # Input del usuario para ingresar la expresión CRON
+    cron_expression = st.text_input("Ingresa la expresión CRON:")
+
+    # Validar la expresión CRON
+    if cron_expression:
+        is_valid = validate_cron_expression(cron_expression)
+        if is_valid:
+            st.success("La expresión CRON es válida.")
+        else:
+            st.error("La expresión CRON es inválida.")
+    else:
+        st.info('Please select a CRON Expression')
+        return
+
+   
 
     # Mostrar información sobre la próxima ejecución basada en la expresión CRON ingresada
     st.markdown("### Próxima ejecución basada en la expresión CRON:")

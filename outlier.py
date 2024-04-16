@@ -7,7 +7,7 @@ import copy
 import altair as alt
 import pytz
 import plotly.graph_objects as go
-import croniter
+from croniter import croniter
     
 
 #------------------------------ TITLE & DESCRIPTION ------------------------------------------------------------------------------------------------------------------------------------------------------

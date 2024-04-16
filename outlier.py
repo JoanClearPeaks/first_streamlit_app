@@ -69,6 +69,9 @@ class Outlier_Quantiles():
             st.success("La expresión CRON es válida.")
         else:
             st.error("La expresión CRON es inválida.")
+    else:
+        st.info('Please select a CRON Expression')
+        return
 
     # Mostrar un ejemplo de expresión CRON válida
     st.markdown("### Ejemplo de expresión CRON válido:")

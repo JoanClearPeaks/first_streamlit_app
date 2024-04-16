@@ -47,7 +47,52 @@ class Outlier_Quantiles():
     #------------------------- USER COLUMN SELECTION -------------------------------------------------------------
     st.sidebar.subheader('COLUMN', help='''Please select the numerical target column.
                           The selection is limited to integer or float types.''')
-    numeric_columns = selection.select_dtypes(include=['float','int']).columns.tolist()      
+    numeric_columns = selection.select_dtypes(include=['float','int']).columns.tolist()  
+
+
+    def validate_cron_expression(expression):
+    try:
+        croniter(expression)
+        return True
+    except:
+        return False
+        
+    st.title("Seleccionar Schedule CRON")
+
+    # Input del usuario para ingresar la expresión CRON
+    cron_expression = st.text_input("Ingresa la expresión CRON:")
+
+    # Validar la expresión CRON
+    if cron_expression:
+        is_valid = validate_cron_expression(cron_expression)
+        if is_valid:
+            st.success("La expresión CRON es válida.")
+        else:
+            st.error("La expresión CRON es inválida.")
+
+    # Mostrar un ejemplo de expresión CRON válida
+    st.markdown("### Ejemplo de expresión CRON válido:")
+    st.write("Ejecutar todos los días a las 9 AM:")
+    st.code("0 9 * * *")
+
+    # Mostrar información sobre la sintaxis CRON
+    st.markdown("### Sintaxis de la expresión CRON:")
+    st.write("La sintaxis de la expresión CRON se compone de cinco campos separados por espacios:")
+    st.write("- Minuto (0-59)")
+    st.write("- Hora (0-23)")
+    st.write("- Día del mes (1-31)")
+    st.write("- Mes (1-12 o nombres cortos en inglés: jan, feb, mar, etc.)")
+    st.write("- Día de la semana (0-6 o nombres cortos en inglés: mon, tue, wed, etc.)")
+
+    st.write("Para más detalles, consulta la sintaxis CRON en Wikipedia: [CRON Expression](https://en.wikipedia.org/wiki/Cron)")
+
+    # Mostrar información sobre la próxima ejecución basada en la expresión CRON ingresada
+    st.markdown("### Próxima ejecución basada en la expresión CRON:")
+    if is_valid:
+        iter = croniter(cron_expression, datetime.now())
+        next_execution = iter.get_next(datetime)
+        st.write(next_execution)
+      
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(numeric_columns), index=0, label_visibility="collapsed")
     
     if self.target_column == None:
@@ -58,7 +103,8 @@ class Outlier_Quantiles():
     date_columns = selection.select_dtypes(include=['datetime']).columns.tolist()
     self.date_column = st.sidebar.selectbox("Select the date column", [None] + ['False'] + list(date_columns), index=0, label_visibility="collapsed")
 
-    
+
+      
     # if self.date_column == None:
     #     st.sidebar.info('Please select a valid date column')
     #     return

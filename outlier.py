@@ -7,8 +7,7 @@ import copy
 import altair as alt
 import pytz
 import plotly.graph_objects as go
-import schedule
-    
+from croniter import croniter    
 
 #------------------------------ TITLE & DESCRIPTION ------------------------------------------------------------------------------------------------------------------------------------------------------
 class Outlier_Quantiles():
@@ -51,11 +50,55 @@ class Outlier_Quantiles():
     numeric_columns = selection.select_dtypes(include=['float','int']).columns.tolist()  
 
 
+    # def validate_cron_expression(expression):
+    #     try:
+    #         croniter(expression)
+    #         return True
+    #     except:
+    #         return False
     def validate_cron_expression(expression):
+        # Dividir la expresión CRON en sus partes individuales
+        parts = expression.split()
+    
+        # Verificar que haya exactamente cinco partes
+        if len(parts) != 5:
+            return False
+    
+        # Verificar cada parte individual
+        for i, part in enumerate(parts):
+            if i == 0:  # Minuto (0-59)
+                if not validate_cron_part(part, 0, 59):
+                    return False
+            elif i == 1:  # Hora (0-23)
+                if not validate_cron_part(part, 0, 23):
+                    return False
+            elif i == 2:  # Día del mes (1-31)
+                if not validate_cron_part(part, 1, 31):
+                    return False
+            elif i == 3:  # Mes (1-12)
+                if not validate_cron_part(part, 1, 12):
+                    return False
+            elif i == 4:  # Día de la semana (0-6)
+                if not validate_cron_part(part, 0, 6):
+                    return False
+    
+        return True
+
+def validate_cron_part(part, min_value, max_value):
+    # Verificar si la parte es un asterisco (*) o un rango válido de valores
+    if part == '*':
+        return True
+    elif '-' in part:
         try:
-            croniter(expression)
-            return True
-        except:
+            start, end = map(int, part.split('-'))
+            return min_value <= start <= end <= max_value
+        except ValueError:
+            return False
+    else:
+        try:
+            value = int(part)
+            return min_value <= value <= max_value
+        except ValueError:
             return False
         
     st.title("Seleccionar Schedule CRON")

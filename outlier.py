@@ -51,11 +51,11 @@ class Outlier_Quantiles():
 
 
     def validate_cron_expression(expression):
-    try:
-        croniter(expression)
-        return True
-    except:
-        return False
+        try:
+            croniter(expression)
+            return True
+        except:
+            return False
         
     st.title("Seleccionar Schedule CRON")
 

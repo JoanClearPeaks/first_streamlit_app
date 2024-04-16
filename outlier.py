@@ -7,7 +7,7 @@ import copy
 import altair as alt
 import pytz
 import plotly.graph_objects as go
-from croniter import croniter    
+# from croniter import croniter    
 
 #------------------------------ TITLE & DESCRIPTION ------------------------------------------------------------------------------------------------------------------------------------------------------
 class Outlier_Quantiles():
@@ -84,22 +84,22 @@ class Outlier_Quantiles():
     
         return True
 
-def validate_cron_part(part, min_value, max_value):
-    # Verificar si la parte es un asterisco (*) o un rango válido de valores
-    if part == '*':
-        return True
-    elif '-' in part:
-        try:
-            start, end = map(int, part.split('-'))
-            return min_value <= start <= end <= max_value
-        except ValueError:
-            return False
-    else:
-        try:
-            value = int(part)
-            return min_value <= value <= max_value
-        except ValueError:
-            return False
+    def validate_cron_part(part, min_value, max_value):
+        # Verificar si la parte es un asterisco (*) o un rango válido de valores
+        if part == '*':
+            return True
+        elif '-' in part:
+            try:
+                start, end = map(int, part.split('-'))
+                return min_value <= start <= end <= max_value
+            except ValueError:
+                return False
+        else:
+            try:
+                value = int(part)
+                return min_value <= value <= max_value
+            except ValueError:
+                return False
         
     st.title("Seleccionar Schedule CRON")
 

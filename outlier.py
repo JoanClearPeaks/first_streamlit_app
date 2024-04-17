@@ -49,98 +49,49 @@ class Outlier_Quantiles():
                           The selection is limited to integer or float types.''')
     numeric_columns = selection.select_dtypes(include=['float','int']).columns.tolist()  
 
-
-    # def validate_cron_expression(expression):
-    #     try:
-    #         croniter(expression)
-    #         return True
-    #     except:
-    #         return False
-    def validate_cron_expression(expression):
-        # Dividir la expresión CRON en sus partes individuales
-        parts = expression.split()
+    import streamlit as st
+    import pandas as pd
+    import numpy as np
     
-        # Verificar que haya exactamente cinco partes
-        if len(parts) != 5:
-            return False
+    def get_data():
+        df = pd.DataFrame({
+            "lat": np.random.randn(200) / 50 + 37.76,
+            "lon": np.random.randn(200) / 50 + -122.4,
+            "team": ['A','B']*100
+        })
+        return df
     
-        # Verificar cada parte individual
-        for i, part in enumerate(parts):
-            if i == 0:  # Minuto (0-59)
-                if not validate_cron_part(part, 0, 59):
-                    return False
-            elif i == 1:  # Hora (0-23)
-                if not validate_cron_part(part, 0, 23):
-                    return False
-            elif i == 2:  # Día del mes (1-31)
-                if not validate_cron_part(part, 1, 31):
-                    return False
-            elif i == 3:  # Mes (1-12)
-                if not validate_cron_part(part, 1, 12):
-                    return False
-            elif i == 4:  # Día de la semana (0-6)
-                if not validate_cron_part(part, 0, 6):
-                    return False
+    if st.button('Generate new points'):
+        st.session_state.df = get_data()
+    if 'df' not in st.session_state:
+        st.session_state.df = get_data()
+    df = st.session_state.df
     
-        return True
-
-    def validate_cron_part(part, min_value, max_value):
-        # Verificar si la parte es un asterisco (*) o un rango válido de valores
-        if part == '*':
-            return True
-        elif '-' in part:
-            try:
-                start, end = map(int, part.split('-'))
-                return min_value <= start <= end <= max_value
-            except ValueError:
-                return False
-        else:
-            try:
-                value = int(part)
-                return min_value <= value <= max_value
-            except ValueError:
-                return False
-        
-    st.title("Seleccionar Schedule CRON")
-
-     # Mostrar un ejemplo de expresión CRON válida
-    st.markdown("### Ejemplo de expresión CRON válido:")
-    st.write("Ejecutar todos los días a las 9 AM:")
-    st.code("0 9 * * *")
-
-    # Mostrar información sobre la sintaxis CRON
-    st.markdown("### Sintaxis de la expresión CRON:")
-    st.write("La sintaxis de la expresión CRON se compone de cinco campos separados por espacios:")
-    st.write("- Minuto (0-59)")
-    st.write("- Hora (0-23)")
-    st.write("- Día del mes (1-31)")
-    st.write("- Mes (1-12 o nombres cortos en inglés: jan, feb, mar, etc.)")
-    st.write("- Día de la semana (0-6 o nombres cortos en inglés: mon, tue, wed, etc.)")
-
-    st.write("Para más detalles, consulta la sintaxis CRON en Wikipedia: [CRON Expression](https://en.wikipedia.org/wiki/Cron)")
-
-    # Input del usuario para ingresar la expresión CRON
-    cron_expression = st.text_input("Ingresa la expresión CRON:")
-
-    # Validar la expresión CRON
-    if cron_expression:
-        is_valid = validate_cron_expression(cron_expression)
-        if is_valid:
-            st.success("La expresión CRON es válida.")
-        else:
-            st.error("La expresión CRON es inválida.")
-    else:
-        st.info('Please select a CRON Expression')
-        return
-
-   
-
-    # Mostrar información sobre la próxima ejecución basada en la expresión CRON ingresada
-    st.markdown("### Próxima ejecución basada en la expresión CRON:")
-    if is_valid:
-        iter = croniter(cron_expression, datetime.now())
-        next_execution = iter.get_next(datetime)
-        st.write(next_execution)
+    with st.form("my_form"):
+        header = st.columns([1,2,2])
+        header[0].subheader('Color')
+        header[1].subheader('Opacity')
+        header[2].subheader('Size')
+    
+        row1 = st.columns([1,2,2])
+        colorA = row1[0].color_picker('Team A', '#0000FF')
+        opacityA = row1[1].slider('A opacity', 20, 100, 50, label_visibility='hidden')
+        sizeA = row1[2].slider('A size', 50, 200, 100, step=10, label_visibility='hidden')
+    
+        row2 = st.columns([1,2,2])
+        colorB = row2[0].color_picker('Team B', '#FF0000')
+        opacityB = row2[1].slider('B opacity', 20, 100, 50, label_visibility='hidden')
+        sizeB = row2[2].slider('B size', 50, 200, 100, step=10, label_visibility='hidden')
+    
+        st.form_submit_button('Update map')
+    
+    alphaA = int(opacityA*255/100)
+    alphaB = int(opacityB*255/100)
+    
+    df['color'] = np.where(df.team=='A',colorA+f'{alphaA:02x}',colorB+f'{alphaB:02x}')
+    df['size'] = np.where(df.team=='A',sizeA, sizeB)
+    
+    st.map(df, size='size', color='color')
       
     self.target_column = st.sidebar.selectbox("Select the target column", [None] +  list(numeric_columns), index=0, label_visibility="collapsed")
     

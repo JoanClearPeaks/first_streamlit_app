@@ -7,6 +7,7 @@ import copy
 import altair as alt
 import pytz
 import plotly.graph_objects as go
+import numpy as np
 # from croniter import croniter    
 
 #------------------------------ TITLE & DESCRIPTION ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -48,10 +49,6 @@ class Outlier_Quantiles():
     st.sidebar.subheader('COLUMN', help='''Please select the numerical target column.
                           The selection is limited to integer or float types.''')
     numeric_columns = selection.select_dtypes(include=['float','int']).columns.tolist()  
-
-    import streamlit as st
-    import pandas as pd
-    import numpy as np
     
     def get_data():
         df = pd.DataFrame({
